@@ -1,0 +1,13 @@
+<div class="pt-5">
+  <div class="mt-5 m-auto loginList text-center border-radius-2">
+    <h4>資料篩選</h4>
+    <div class="row">
+      <select class="form-select" #t (change)="changeName(t.value)">
+        <option  *ngFor="let c of StudentsData" [value]="c.name">{{c.name}}</option>
+      </select>
+    </div>
+    <div class="row mt-3">
+      <button [routerLink]="['/analyze/' + firstName]" class="btn btn-primary">搜尋</button>
+    </div>
+  </div>
+</div>
