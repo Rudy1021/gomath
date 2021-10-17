@@ -9,7 +9,8 @@ import { ImportComponent } from './components/import/import.component';
 import { AnalyzeComponent } from './components/analyze/analyze.component';
 import { FilesComponent } from './components/files/files.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { FormsModule } from "@angular/forms";
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,9 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     MatTableModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

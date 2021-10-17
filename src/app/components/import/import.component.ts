@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpsService } from './../../services/https.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 @Component({
   templateUrl: './import.component.html',
   styleUrls: ['./import.component.scss']
@@ -7,7 +8,7 @@ import { HttpsService } from './../../services/https.service';
 export class ImportComponent implements OnInit {
   fileName: string = '';
   studentInfo: any;
-  constructor(private HttpsService: HttpsService) { }
+  constructor(private HttpsService: HttpsService,) { }
 
   ngOnInit(): void {
   }
@@ -30,14 +31,30 @@ export class ImportComponent implements OnInit {
     }]
     this.HttpsService.uploadProjectRequest(sendInfo).subscribe(res => {
       if (res.status == 200) {
-        alert("新增成功！即將返回主頁面")
-        location.href = '/main'
+        Swal.fire({
+          title: '成功',
+          icon: 'success',
+          text: '新增成功！即將返回主頁面',
+          confirmButtonText: '好的'
+        }).then((result) => {
+          location.href = '/main'
+        })
       } else {
-        alert('新增失敗！請檢查帳號是否重複！')
+        Swal.fire({
+          title: '錯誤',
+          icon: 'error',
+          text: '新增失敗！請檢查帳號是否重複！',
+          confirmButtonText: '好的'
+        })
       }
     }, err => {
       if (err.status == 500) {
-        alert('新增失敗！請檢查帳號是否重複！')
+        Swal.fire({
+          title: '錯誤',
+          icon: 'error',
+          text: '新增失敗！請檢查帳號是否重複！',
+          confirmButtonText: '好的'
+        })
       }
     })
   }

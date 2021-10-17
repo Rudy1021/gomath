@@ -3,7 +3,6 @@
   background: #eee;
   padding: 3rem 7rem 3rem 7rem;
 }
-
 body {
   background-image: url("../img/background_landing_page.png");
   background-size: auto;
@@ -11,7 +10,15 @@ body {
   background-attachment: fixed;
   background-position: center;
 }
-
+.swal2-html-container {
+  text-align: center;
+}
+.username {
+  list-style-type: none;
+}
+.menu {
+  left: -3.375rem!important;
+}
 .border-radius-2 {
   border-radius: 2rem;
 }

@@ -2,13 +2,13 @@
   <div class="mt-5 m-auto loginList text-center border-radius-2">
     <h4>登入</h4>
     <div class="row">
-      <input type="text" class="loginInput border-radius-2 mb-3 mt-2" placeholder="帳號">
+      <input type="text" [(ngModel)]="account" class="test loginInput border-radius-2 mb-3 mt-2" placeholder="帳號">
     </div>
     <div class="row">
-      <input type="text" class="loginInput border-radius-2" placeholder="密碼">
+      <input type="text" [(ngModel)]="password" class="loginInput border-radius-2" placeholder="密碼">
     </div>
     <div class="row">
-      <a href="/main" class="btn btn-primary border-radius-2">登入</a>
+      <button (click)='login()' class="btn btn-primary border-radius-2">登入</button>
     </div>
   </div>
 </div>
