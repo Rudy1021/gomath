@@ -14,6 +14,8 @@ export class HttpsService {
   }
   uploadProjectRequest(Request: any) {
     const url = `${this.BaseUrl}/Account/ImportStudent`;
-    return this.http.post(url, Request);
+    return this.http.post(url, Request, {
+      observe: 'response'
+    });
   }
 }
