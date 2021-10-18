@@ -25,8 +25,8 @@ export class ImportComponent implements OnInit {
   }
   sendScore() {
     var sendInfo = [{
-      accountId: this.studentInfo[0], studentId: this.studentInfo[1], schoolId: 0,
-      name: this.studentInfo[2], class: this.studentInfo[3],
+      studentId: this.studentInfo[0], schoolId: 0,
+      name: this.studentInfo[1], class: this.studentInfo[2],
       gender: true
     }]
     this.HttpsService.uploadProjectRequest(sendInfo).subscribe(res => {

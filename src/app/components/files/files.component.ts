@@ -12,10 +12,10 @@ export class FilesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getStudents();
+    this.getScores();
   }
-  getStudents(): void {
-    this.HttpsService.getStudents().subscribe(StudentsData => {
+  getScores(): void {
+    this.HttpsService.getScores().subscribe(StudentsData => {
       //console.log(StudentsData[0])
       this.StudentsData = StudentsData
       this.firstName = StudentsData[0].name
@@ -26,19 +26,6 @@ export class FilesComponent implements OnInit {
     this.firstName = Value
     console.log(Value)
   }
-  /*
-  getCustomerRequests(): void {
-    this.HttpsService.get()
-      .subscribe(customerRequests => {
-        console.log(customerRequests)
-        this.showData(customerRequests.result);
-      },
-        (err: any) => {
-          console.log('err:', err);
-        }
-      );
-  }
-  */
   showData(result: any) {
     throw new Error('Method not implemented.');
   }

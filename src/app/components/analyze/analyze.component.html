@@ -37,7 +37,7 @@
     </div>
     <div class="row mt-3 noPrint">
       <div class="col-6">
-        <button href=""(click)="daochu()" class="btn btn-primary">匯出</button>
+        <button (click)="daochu()" class="btn btn-primary">匯出</button>
       </div>
       <div class="col-6">
         <a href="javascript:window.print()" class="btn btn-primary">列印</a>
@@ -46,7 +46,7 @@
     <div class="row mt-3 noPrint">
       <div class="col-4"></div>
       <div class="col-4">
-        <a href="/files" class="btn btn-primary">重新選擇資料</a>
+        <a [routerLink]="['/files']" class="btn btn-primary">重新選擇資料</a>
       </div>
     </div>
   </div>

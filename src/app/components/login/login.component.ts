@@ -7,6 +7,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 export class LoginComponent implements OnInit {
   account = '';
   password = '';
+  hide: boolean = true;
   constructor() { }
 
   ngOnInit(): void {
@@ -24,4 +25,5 @@ export class LoginComponent implements OnInit {
       })
     }
   }
+
 }

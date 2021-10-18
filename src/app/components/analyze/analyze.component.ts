@@ -27,25 +27,22 @@ export class AnalyzeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getStudents();
+    this.getScores();
     console.log(this.route.snapshot.paramMap.get('name')!)
   }
   daochu() {
     /* generate worksheet */
     const ws: xlsx.WorkSheet = xlsx.utils.aoa_to_sheet(this.data);
-    const ws2: xlsx.WorkSheet = xlsx.utils.aoa_to_sheet(this.data);
 
     /* generate workbook and add the worksheet */
     const wb: xlsx.WorkBook = xlsx.utils.book_new();
     xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
-    xlsx.utils.book_append_sheet(wb, ws2, 'Sheet2');
-
     console.log(wb)
     /* save to file */
     xlsx.writeFile(wb, '學生成績.xlsx');
   }
-  getStudents(): void {
-    this.HttpsService.getStudents().subscribe(StudentsData => {
+  getScores(): void {
+    this.HttpsService.getScores().subscribe(StudentsData => {
       this.StudentsData = StudentsData
       StudentsData.forEach((element: any) => {
         if (element.name == this.route.snapshot.paramMap.get('name')!) {
