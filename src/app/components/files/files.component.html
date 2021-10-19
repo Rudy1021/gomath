@@ -8,7 +8,7 @@
       <input type="text" class="loginInput mt-3">
     </div>
     <div class="row mt-3">
-      <select class="loginInput" #d (change)="changeName(d.value)">
+      <select class="loginInput">
         <option  *ngFor="let c of filters2" [value]="c">{{c}}</option>
       </select>
       <input type="text" class="loginInput mt-3">
