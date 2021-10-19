@@ -6,8 +6,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FilesComponent implements OnInit {
   StudentsData: any;
-  filters1: any = ['作答時間', '性別', '作答結果', '學生姓名', '作答大題'];
-  filters2: any = ['性別', '作答結果', '學生姓名', '作答大題'];
+  none: boolean = true;
+  filters1: any = ['無', '作答時間', '性別', '作答結果', '學生姓名', '作答大題'];
+  filters2: any = [];
   constructor(
     private HttpsService: HttpsService
   ) { }
@@ -22,8 +23,16 @@ export class FilesComponent implements OnInit {
   }
 
   changeName(Value: any): void {
-    this.filters2 = ['作答時間', '性別', '作答結果', '學生姓名', '作答大題'];
-    var option1 = this.filters1.indexOf(Value)
-    this.filters2.splice(option1, 1);
+    if (Value == '無') {
+      this.filters2 = [];
+      this.none = true
+    } else {
+      console.log('a')
+      this.filters2 = ['作答時間', '性別', '作答結果', '學生姓名', '作答大題'];
+      var option1 = this.filters1.indexOf(Value)
+      this.filters2.splice(option1 - 1, 1);
+      this.none = false
+    }
+
   }
 }
