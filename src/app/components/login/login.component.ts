@@ -12,7 +12,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
   login() {
     if (this.account == 'admin' && this.password == '12345678') {
       location.href = '/main'

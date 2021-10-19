@@ -9,6 +9,7 @@ export class FilesComponent implements OnInit {
   none: boolean = true;
   filters1: any = ['無', '作答時間', '性別', '作答結果', '學生姓名', '作答大題'];
   filters2: any = [];
+  no: boolean = true;
   constructor(
     private HttpsService: HttpsService
   ) { }
@@ -28,11 +29,17 @@ export class FilesComponent implements OnInit {
       this.none = true
     } else {
       console.log('a')
-      this.filters2 = ['作答時間', '性別', '作答結果', '學生姓名', '作答大題'];
+      this.filters2 = ['無', '作答時間', '性別', '作答結果', '學生姓名', '作答大題'];
       var option1 = this.filters1.indexOf(Value)
-      this.filters2.splice(option1 - 1, 1);
+      this.filters2.splice(option1, 1);
       this.none = false
     }
-
+  }
+  non(Value: any): void {
+    if (Value == '無') {
+      this.no = true
+    } else {
+      this.no = false
+    }
   }
 }
