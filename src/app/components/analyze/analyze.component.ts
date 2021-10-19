@@ -28,7 +28,6 @@ export class AnalyzeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getScores();
-    console.log(this.route.snapshot.paramMap.get('name')!)
   }
   daochu() {
     /* generate worksheet */
@@ -37,9 +36,8 @@ export class AnalyzeComponent implements OnInit {
     /* generate workbook and add the worksheet */
     const wb: xlsx.WorkBook = xlsx.utils.book_new();
     xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
-    console.log(wb)
     /* save to file */
-    xlsx.writeFile(wb, '學生成績.xlsx');
+    xlsx.writeFile(wb, '學生成績.csv');
   }
   getScores(): void {
     this.HttpsService.getScores().subscribe(StudentsData => {
@@ -53,6 +51,7 @@ export class AnalyzeComponent implements OnInit {
           this.dataSource = this.ELEMENT_DATA;
           var exportInfo = [element.name, element.studentId, element.topic, element.answerSpeedSecond]
           this.data.push(exportInfo)
+          console.log(this.data)
         }
       });
     })

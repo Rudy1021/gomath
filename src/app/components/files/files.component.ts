@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FilesComponent implements OnInit {
   StudentsData: any;
-  firstName: string = '';
+  filters1: any = ['作答時間', '性別', '作答結果', '學生姓名', '作答大題'];
+  filters2: any = ['性別', '作答結果', '學生姓名', '作答大題'];
   constructor(
     private HttpsService: HttpsService
   ) { }
@@ -16,17 +17,13 @@ export class FilesComponent implements OnInit {
   }
   getScores(): void {
     this.HttpsService.getScores().subscribe(StudentsData => {
-      //console.log(StudentsData[0])
-      this.StudentsData = StudentsData
-      this.firstName = StudentsData[0].name
+      console.log(this.StudentsData)
     })
   }
 
   changeName(Value: any): void {
-    this.firstName = Value
-    console.log(Value)
-  }
-  showData(result: any) {
-    throw new Error('Method not implemented.');
+    this.filters2 = ['作答時間', '性別', '作答結果', '學生姓名', '作答大題'];
+    var option1 = this.filters1.indexOf(Value)
+    this.filters2.splice(option1, 1);
   }
 }

@@ -14,7 +14,7 @@ export class EditStudentComponent implements OnInit {
   class: string = '';
   schoolName: string = '';
   gender: boolean = true;
-
+  accountId: string = '';
   constructor(private HttpsService: HttpsService,
     private route: ActivatedRoute) { }
 
@@ -31,21 +31,24 @@ export class EditStudentComponent implements OnInit {
           this.studentId = element.studentId
           this.schoolName = element.schoolName
           this.gender = element.gender
+          this.accountId = element.accountId
+
         }
       });
     })
   }
   updateStudents(): void {
     var updateData = {
-      "accountId": this.route.snapshot.paramMap.get('accountId')!,
+      "accountId": this.accountId,
       "studentId": this.studentId,
-      "schoolId": 0,
       "name": this.name,
       "class": this.class,
       "gender": this.gender
     }
-    this.HttpsService.updateStudent(this.studentId, updateData).subscribe(res => {
-      if (res.status == 200 && res.body == 'true') {
+    console.log(updateData)
+    this.HttpsService.updateStudent(this.accountId, updateData).subscribe(res => {
+      console.log(res)
+      if (res.status == 200 && res.body == true) {
         Swal.fire({
           title: '成功',
           icon: 'success',

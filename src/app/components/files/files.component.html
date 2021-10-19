@@ -2,12 +2,19 @@
   <div class="mt-5 m-auto loginList text-center border-radius-2">
     <h4>資料篩選</h4>
     <div class="row">
-      <select class="form-select" #t (change)="changeName(t.value)">
-        <option  *ngFor="let c of StudentsData" [value]="c.name">{{c.name}}</option>
+      <select class="loginInput" #t (change)="changeName(t.value)">
+        <option  *ngFor="let c of filters1" [value]="c">{{c}}</option>
       </select>
+      <input type="text" class="loginInput mt-3">
     </div>
     <div class="row mt-3">
-      <button [routerLink]="['/analyze/' + firstName]" class="btn btn-primary">搜尋</button>
+      <select class="loginInput" #d (change)="changeName(d.value)">
+        <option  *ngFor="let c of filters2" [value]="c">{{c}}</option>
+      </select>
+      <input type="text" class="loginInput mt-3">
+    </div>
+    <div class="row mt-3">
+      <button [routerLink]="['/analyze/']" class="btn btn-primary">搜尋</button>
     </div>
     <div class="row mt-3">
       <div class="col-3"></div>
@@ -17,3 +24,12 @@
     </div>
   </div>
 </div>
+
+<!--
+    <div class="row">
+      <select class="form-select" #t (change)="changeName(t.value)">
+        <option  *ngFor="let c of StudentsData" [value]="c.name">{{c.name}}</option>
+      </select>
+    </div>
+
+-->
