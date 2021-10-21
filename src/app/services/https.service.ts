@@ -33,4 +33,7 @@ export class HttpsService {
   getTopic(): Observable<any> {
     return this.http.get(this.BaseUrl + '/Topic/TopicList');
   }
+  getTopicName(): Observable<any> {
+    return this.http.get(this.BaseUrl + '/Topic/GetQuestionTypeIdToName');
+  }
 }

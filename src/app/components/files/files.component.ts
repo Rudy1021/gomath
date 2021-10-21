@@ -18,19 +18,32 @@ export class FilesComponent implements OnInit {
   gen = '男'
   gend1 = ''
   gend2 = ''
+  topic1: any = []
+  topic2: any = []
+  topic: any = []
+  topics1 = ''
+  topics2 = ''
   constructor(
     private HttpsService: HttpsService
   ) { }
 
   ngOnInit(): void {
     this.getScores();
+    this.getTopicName();
   }
   getScores(): void {
     this.HttpsService.getScores().subscribe(StudentsData => {
-      console.log(this.StudentsData)
     })
   }
-
+  getTopicName() {
+    this.HttpsService.getTopicName().subscribe(Data => {
+      this.topic = Data
+      Data.forEach((element: any) => {
+        this.topic1.push(element.name)
+        this.topic2.push(element.name)
+      });
+    })
+  }
   changeName(Value: any): void {
     this.oneAns = ''
     if (Value == '無') {
@@ -55,6 +68,21 @@ export class FilesComponent implements OnInit {
   }
 
   search() {
+    var s
+    if (this.one == '作答大題') {
+      this.topic.forEach((element: any) => {
+        if (this.topics1 == element.name) {
+          s = element.questionTypeId
+        }
+      });
+    } else if (this.two == '作答大題') {
+      this.topic.forEach((element: any) => {
+        if (this.topics2 == element.name) {
+          s = element.questionTypeId
+        }
+      });
+    }
+    console.log(s)
     var g = true
     if (this.gend1 == '男' && this.oneAns == '') {
       g = true
@@ -72,24 +100,24 @@ export class FilesComponent implements OnInit {
         location.href = '/analyze/a' + this.oneAns
       } else if (this.two == '性別') {
         location.href = '/analyze/a' + this.oneAns + 'andg' + g
-      } else if (this.two == '作答結果') {
+      } else if (this.two == '作答結果') {//
         location.href = '/analyze/a' + this.oneAns + 'ands' + this.twoAns
       } else if (this.two == '學生學號') {
         location.href = '/analyze/a' + this.oneAns + 'andI' + this.twoAns
-      } else if (this.two == '作答大題') { //
-        location.href = '/analyze/startTime=' + this.oneAns + '&EndTime=' + this.oneAns
+      } else if (this.two == '作答大題') {
+        location.href = '/analyze/a' + this.oneAns + 'ands' + s
       }
     } else if (this.one == '性別') {
       if (this.two == '無') {
         location.href = '/analyze/g' + g
       } else if (this.two == '作答時間') {
         location.href = '/analyze/a' + this.twoAns + 'andg' + g
-      } else if (this.two == '作答結果') { //
+      } else if (this.two == '作答結果') {//
         location.href = '/analyze/g' + g + 'ands' + this.twoAns
       } else if (this.two == '學生學號') {
         location.href = '/analyze/g' + g + 'angI' + this.twoAns
       } else if (this.two == '作答大題') {
-        location.href = '/analyze/s' + this.oneAns + 'andg' + g
+        location.href = '/analyze/s' + s + 'andg' + g
       }
     } else if (this.one == '作答結果') { //
       if (this.two == '無') {
@@ -112,18 +140,18 @@ export class FilesComponent implements OnInit {
         location.href = '/analyze/startTime=' + this.oneAns + '&EndTime=' + this.oneAns
       } else if (this.two == '作答時間') {
         location.href = '/analyze/a' + this.twoAns + 'andI' + this.oneAns
-      } else if (this.two == '作答大題') { //
-        location.href = '/analyze/s' + this.twoAns + 'andI' + this.oneAns
+      } else if (this.two == '作答大題') {
+        location.href = '/analyze/s' + this.twoAns + 'ands' + s
       }
     } else if (this.one == '作答大題') {
       if (this.two == '無') {
-        location.href = '/analyze/s' + this.oneAns
+        location.href = '/analyze/s' + s
       } else if (this.two == '性別') {
-        location.href = '/analyze/g' + g + 'ands' + this.oneAns
+        location.href = '/analyze/g' + g + 'ands' + s
       } else if (this.two == '作答結果') { //
         location.href = '/analyze/startTime=' + this.oneAns + '&EndTime=' + this.oneAns
       } else if (this.two == '學生學號') {
-        location.href = '/analyze/s' + this.oneAns + 'andI' + this.twoAns
+        location.href = '/analyze/s' + s + 'andI' + this.twoAns
       } else if (this.two == '作答時間') {
         location.href = '/analyze/s' + this.oneAns + 'anda' + this.twoAns
       }
