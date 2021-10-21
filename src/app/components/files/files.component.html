@@ -5,7 +5,7 @@
       <select [(ngModel)]="one" class="loginInput" #t (change)="changeName(t.value)">
         <option  *ngFor="let c of filters1" [value]="c">{{c}}</option>
       </select>
-      <select #m class="loginInput mt-3" [(ngModel)]="oneAns" *ngIf="one == '性別'">
+      <select #m class="loginInput mt-3" [(ngModel)]="gend1" *ngIf="one == '性別'">
         <option  *ngFor="let c of filters3" [value]="c">{{c}}</option>
       </select>
       <input *ngIf="one != '性別'" [(ngModel)]="oneAns" [disabled]="none ? true : false" type="text" class="loginInput mt-3">
@@ -14,7 +14,7 @@
       <select #d [(ngModel)]="two" (change)="non(d.value)" [disabled]="none ? true : false" class="loginInput">
         <option  *ngFor="let c of filters2" [value]="c">{{c}}</option>
       </select>
-      <select #m  class="loginInput mt-3" [(ngModel)]="oneAns" *ngIf="two == '性別'">
+      <select #m  class="loginInput mt-3" [(ngModel)]="gend2" *ngIf="two == '性別'">
         <option  *ngFor="let c of filters3" [value]="c">{{c}}</option>
       </select>
       <input *ngIf="two != '性別'" [(ngModel)]="twoAns" type="text"[disabled]="no ? true : false" class="loginInput mt-3">
