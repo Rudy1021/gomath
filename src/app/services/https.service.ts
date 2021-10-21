@@ -30,4 +30,7 @@ export class HttpsService {
   getSearch(route: string): Observable<any> {
     return this.http.get(this.BaseUrl + '/Account/AnalyzeTestCondition?' + route);
   }
+  getTopic(): Observable<any> {
+    return this.http.get(this.BaseUrl + '/Topic/TopicList');
+  }
 }

@@ -9,11 +9,13 @@ export class FilesComponent implements OnInit {
   none: boolean = true;
   filters1: any = ['無', '作答時間', '性別', '作答結果', '學生學號', '作答大題'];
   filters2: any = [];
+  filters3: any = ['男', '女']
   no: boolean = true;
   one = '無'
   two = ''
   oneAns = ''
   twoAns = ''
+  gen = '男'
   constructor(
     private HttpsService: HttpsService
   ) { }
@@ -52,10 +54,9 @@ export class FilesComponent implements OnInit {
     var g = true
     if (this.oneAns == '男') {
       g = true
-    } else {
+    } else if (this.oneAns == '女') {
       g = false
-    }
-    if (this.twoAns == '男') {
+    } else if (this.twoAns == '男') {
       g = true
     } else {
       g = false
@@ -67,8 +68,8 @@ export class FilesComponent implements OnInit {
         location.href = '/analyze/a' + this.oneAns
       } else if (this.two == '性別') {
         location.href = '/analyze/a' + this.oneAns + 'andg' + g
-      } else if (this.two == '作答結果') { //
-        location.href = '/analyze/startTime=' + this.oneAns + '&EndTime=' + this.oneAns
+      } else if (this.two == '作答結果') {
+        location.href = '/analyze/a' + this.oneAns + 'ands' + this.twoAns
       } else if (this.two == '學生學號') {
         location.href = '/analyze/a' + this.oneAns + 'andI' + this.twoAns
       } else if (this.two == '作答大題') { //
@@ -76,11 +77,11 @@ export class FilesComponent implements OnInit {
       }
     } else if (this.one == '性別') {
       if (this.two == '無') {
-        location.href = '/analyze/Gender=' + g
+        location.href = '/analyze/g' + g
       } else if (this.two == '作答時間') {
         location.href = '/analyze/a' + this.oneAns + 'andg' + g
       } else if (this.two == '作答結果') { //
-        location.href = '/analyze/startTime=' + this.oneAns + '&EndTime=' + this.oneAns
+        location.href = '/analyze/g' + this.oneAns + 'ands' + this.twoAns
       } else if (this.two == '學生學號') {
         location.href = '/analyze/g' + g + 'angI' + this.twoAns
       } else if (this.two == '作答大題') {
