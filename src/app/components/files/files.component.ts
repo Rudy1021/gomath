@@ -10,6 +10,7 @@ export class FilesComponent implements OnInit {
   filters1: any = ['無', '作答時間', '性別', '作答結果', '學生學號', '作答大題'];
   filters2: any = [];
   filters3: any = ['男', '女']
+  filters4: any = ['對', '錯']
   no: boolean = true;
   one = '無'
   two = ''
@@ -23,6 +24,7 @@ export class FilesComponent implements OnInit {
   topic: any = []
   topics1 = ''
   topics2 = ''
+
   constructor(
     private HttpsService: HttpsService
   ) { }

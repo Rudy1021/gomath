@@ -9,7 +9,10 @@
         <option  *ngFor="let c of filters3" [value]="c">{{c}}</option>
       </select>
       <select class="loginInput mt-3" [(ngModel)]="topics1" *ngIf="one == '作答大題'">
-        <option  *ngFor="let c of topic1" [value]="c">{{c}}</option>
+        <option *ngFor="let c of topic1" [value]="c">{{c}}</option>
+      </select>
+      <select *ngIf="one == '作答結果'" class="loginInput mt-3">
+        <option *ngFor="let c of filters4" [value]="c">{{c}}</option>
       </select>
       <input *ngIf="one != '性別' && one != '作答大題'" [(ngModel)]="oneAns" [disabled]="none ? true : false" type="text" class="loginInput mt-3">
     </div>
@@ -22,6 +25,9 @@
       </select>
       <select class="loginInput mt-3" [(ngModel)]="topics2" *ngIf="two == '作答大題'">
         <option  *ngFor="let c of topic2" [value]="c">{{c}}</option>
+      </select>
+      <select *ngIf="two == '作答結果'" class="loginInput mt-3">
+        <option *ngFor="let c of filters4" [value]="c">{{c}}</option>
       </select>
       <input *ngIf="two != '性別' && two != '作答大題'" [(ngModel)]="twoAns" type="text"[disabled]="no ? true : false" class="loginInput mt-3">
     </div>
