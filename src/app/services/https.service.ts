@@ -30,10 +30,18 @@ export class HttpsService {
   getSearch(route: string): Observable<any> {
     return this.http.get(this.BaseUrl + '/Account/AnalyzeTestCondition?' + route);
   }
-  getTopic(): Observable<any> {
-    return this.http.get(this.BaseUrl + '/Topic/TopicList');
-  }
   getTopicName(): Observable<any> {
     return this.http.get(this.BaseUrl + '/Topic/GetQuestionTypeIdToName');
+  }
+  getGroup(): Observable<any> {
+    return this.http.get(this.BaseUrl + '/Topic/GetTopicCusomizedSettings');
+  }
+  updateGroup(id: string, Request: any) {
+    const url = `${this.BaseUrl}/Topic/PatchTopicCustomizedSettings/${id}`;
+    return this.http.patch(url, Request);
+  }
+  uploadGroup(Request: any) {
+    const url = `${this.BaseUrl}/Topic/NewTopicCusomizedSettings`;
+    return this.http.post(url, Request)
   }
 }

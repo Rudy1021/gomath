@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { StudentInfoComponent } from './components/student-info/student-info.component';
 import { EditStudentComponent } from './components/edit-student/edit-student.component';
 import { TopicComponent } from './components/topic/topic.component';
+import { NewGroupComponent } from './components/new-group/new-group.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +27,7 @@ import { TopicComponent } from './components/topic/topic.component';
     StudentInfoComponent,
     EditStudentComponent,
     TopicComponent,
+    NewGroupComponent,
   ],
   imports: [
     BrowserModule,

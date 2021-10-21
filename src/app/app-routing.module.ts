@@ -1,3 +1,4 @@
+import { NewGroupComponent } from './components/new-group/new-group.component';
 import { TopicComponent } from './components/topic/topic.component';
 import { EditStudentComponent } from './components/edit-student/edit-student.component';
 import { StudentInfoComponent } from './components/student-info/student-info.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'import', component: ImportComponent },
   { path: 'editStudent/:accountId', component: EditStudentComponent },
   { path: 'topic', component: TopicComponent },
+  { path: 'newGroup', component: NewGroupComponent }
 ];
 
 @NgModule({
