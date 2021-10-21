@@ -2,19 +2,19 @@
   <div class="mt-5 m-auto loginList text-center border-radius-2">
     <h4>資料篩選</h4>
     <div class="row">
-      <select class="loginInput" #t (change)="changeName(t.value)">
+      <select [(ngModel)]="one" class="loginInput" #t (change)="changeName(t.value)">
         <option  *ngFor="let c of filters1" [value]="c">{{c}}</option>
       </select>
-      <input [disabled]="none ? true : false" type="text" class="loginInput mt-3">
+      <input [(ngModel)]="oneAns" [disabled]="none ? true : false" type="text" class="loginInput mt-3">
     </div>
     <div class="row mt-3">
-      <select #d (change)="non(d.value)" [disabled]="none ? true : false" class="loginInput">
+      <select #d [(ngModel)]="two" (change)="non(d.value)" [disabled]="none ? true : false" class="loginInput">
         <option  *ngFor="let c of filters2" [value]="c">{{c}}</option>
       </select>
-      <input type="text"[disabled]="no ? true : false" class="loginInput mt-3">
+      <input [(ngModel)]="twoAns" type="text"[disabled]="no ? true : false" class="loginInput mt-3">
     </div>
     <div class="row mt-3">
-      <button [routerLink]="['/analyze/']" class="btn btn-primary">搜尋</button>
+      <button (click)="search()" class="btn btn-primary">搜尋</button>
     </div>
     <div class="row mt-3">
       <div class="col-3"></div>

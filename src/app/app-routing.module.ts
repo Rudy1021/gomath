@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'StudentInfo', component: StudentInfoComponent },
   { path: 'main', component: MainComponent },
   { path: 'files', component: FilesComponent },
-  { path: 'analyze/:name', component: AnalyzeComponent },
+  { path: 'analyze/:arg', component: AnalyzeComponent },
   { path: 'import', component: ImportComponent },
   { path: 'editStudent/:accountId', component: EditStudentComponent },
   { path: 'topic', component: TopicComponent },

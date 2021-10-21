@@ -22,9 +22,12 @@ export class HttpsService {
     });
   }
   updateStudent(id: string, Request: any) {
-    const url = `${this.BaseUrl}/Account/UpdateStudent/${id}`;
-    return this.http.put(url, Request, {
+    const url = `${this.BaseUrl}/Account/PatchStudent/${id}`;
+    return this.http.patch(url, Request, {
       observe: 'response'
     });
+  }
+  getSearch(route: string): Observable<any> {
+    return this.http.get(this.BaseUrl + '/Account/AnalyzeTestCondition?' + route);
   }
 }

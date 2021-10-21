@@ -3,15 +3,15 @@
     <h4>編輯學生資料</h4>
     <div class="row mt-3">
       <div class="col-12">
-        <input type="text" [ngModel]="studentId" class="loginInput" placeholder="學號">
+        <input type="text" [(ngModel)]="studentId" class="loginInput" placeholder="學號">
       </div>
     </div>
     <div class="row">
       <div class="col-6">
-        <input class="loginInput" [ngModel]="name" type="text" placeholder="姓名">
+        <input class="loginInput" [(ngModel)]="name" type="text" placeholder="姓名">
       </div>
       <div class="col-6">
-        <select class="loginInput" [ngModel]="gender">
+        <select class="loginInput" [(ngModel)]="gender">
           <option value="true">
             男
           </option>
@@ -22,8 +22,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-6"><input [ngModel]="schoolName" class="loginInput" type="text" placeholder="學校名稱"></div>
-      <div class="col-6"><input [ngModel]="class" class="loginInput" type="text" placeholder="班級"></div>
+      <div class="col-12"><input [(ngModel)]="class" class="loginInput" type="text" placeholder="班級"></div>
     </div>
     <div class="row mt-3">
       <div class="col-3"></div>

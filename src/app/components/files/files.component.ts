@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 export class FilesComponent implements OnInit {
   StudentsData: any;
   none: boolean = true;
-  filters1: any = ['無', '作答時間', '性別', '作答結果', '學生姓名', '作答大題'];
+  filters1: any = ['無', '作答時間', '性別', '作答結果', '學生學號', '作答大題'];
   filters2: any = [];
   no: boolean = true;
+  one = '無'
+  two = ''
+  oneAns = ''
+  twoAns = ''
   constructor(
     private HttpsService: HttpsService
   ) { }
@@ -28,8 +32,8 @@ export class FilesComponent implements OnInit {
       this.filters2 = [];
       this.none = true
     } else {
-      console.log('a')
-      this.filters2 = ['無', '作答時間', '性別', '作答結果', '學生姓名', '作答大題'];
+      this.two = '無'
+      this.filters2 = ['無', '作答時間', '性別', '作答結果', '學生學號', '作答大題'];
       var option1 = this.filters1.indexOf(Value)
       this.filters2.splice(option1, 1);
       this.none = false
@@ -40,6 +44,84 @@ export class FilesComponent implements OnInit {
       this.no = true
     } else {
       this.no = false
+    }
+  }
+
+  search() {
+    console.log(this.one)
+    var g = true
+    if (this.oneAns == '男') {
+      g = true
+    } else {
+      g = false
+    }
+    if (this.twoAns == '男') {
+      g = true
+    } else {
+      g = false
+    }
+    if (this.one == '無') {
+      location.href = '/analyze/none'
+    } else if (this.one == '作答時間') {
+      if (this.two == '無') {
+        location.href = '/analyze/a' + this.oneAns
+      } else if (this.two == '性別') {
+        location.href = '/analyze/a' + this.oneAns + 'andg' + g
+      } else if (this.two == '作答結果') { //
+        location.href = '/analyze/startTime=' + this.oneAns + '&EndTime=' + this.oneAns
+      } else if (this.two == '學生學號') {
+        location.href = '/analyze/a' + this.oneAns + 'andI' + this.twoAns
+      } else if (this.two == '作答大題') { //
+        location.href = '/analyze/startTime=' + this.oneAns + '&EndTime=' + this.oneAns
+      }
+    } else if (this.one == '性別') {
+      if (this.two == '無') {
+        location.href = '/analyze/Gender=' + g
+      } else if (this.two == '作答時間') {
+        location.href = '/analyze/a' + this.oneAns + 'andg' + g
+      } else if (this.two == '作答結果') { //
+        location.href = '/analyze/startTime=' + this.oneAns + '&EndTime=' + this.oneAns
+      } else if (this.two == '學生學號') {
+        location.href = '/analyze/g' + g + 'angI' + this.twoAns
+      } else if (this.two == '作答大題') {
+        location.href = '/analyze/s' + this.oneAns + 'andg' + g
+      }
+    } else if (this.one == '作答結果') { //
+      if (this.two == '無') {
+        location.href = '/analyze/startTime=' + this.oneAns + '&EndTime=' + this.oneAns
+      } else if (this.two == '性別') {
+        location.href = '/analyze/g' + g + '&Gender=' + g
+      } else if (this.two == '作答時間') {
+        location.href = '/analyze/startTime=' + this.twoAns + '&EndTime=' + this.twoAns
+      } else if (this.two == '學生學號') {
+        location.href = '/analyze/startTime=' + this.oneAns + '&EndTime=' + this.oneAns + '&studentId=' + this.twoAns
+      } else if (this.two == '作答大題') {
+        location.href = '/analyze/startTime=' + this.oneAns + '&EndTime=' + this.oneAns
+      }
+    } else if (this.one == '學生學號') {
+      if (this.two == '無') {
+        location.href = '/analyze/I' + this.oneAns
+      } else if (this.two == '性別') {
+        location.href = '/analyze/g' + g + 'andI' + this.oneAns
+      } else if (this.two == '作答結果') { //
+        location.href = '/analyze/startTime=' + this.oneAns + '&EndTime=' + this.oneAns
+      } else if (this.two == '作答時間') {
+        location.href = '/analyze/a' + this.twoAns + 'andI' + this.oneAns
+      } else if (this.two == '作答大題') { //
+        location.href = '/analyze/s' + this.twoAns + 'andI' + this.oneAns
+      }
+    } else if (this.one == '作答大題') {
+      if (this.two == '無') {
+        location.href = '/analyze/s' + this.oneAns
+      } else if (this.two == '性別') {
+        location.href = '/analyze/g' + g + 'ands' + this.oneAns
+      } else if (this.two == '作答結果') { //
+        location.href = '/analyze/startTime=' + this.oneAns + '&EndTime=' + this.oneAns
+      } else if (this.two == '學生學號') {
+        location.href = '/analyze/s' + this.oneAns + 'andI' + this.twoAns
+      } else if (this.two == '作答時間') {
+        location.href = '/analyze/s' + this.oneAns + 'anda' + this.twoAns
+      }
     }
   }
 }

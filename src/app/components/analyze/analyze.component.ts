@@ -40,10 +40,52 @@ export class AnalyzeComponent implements OnInit {
     xlsx.writeFile(wb, '學生成績.csv');
   }
   getScores(): void {
-    this.HttpsService.getScores().subscribe(StudentsData => {
-      this.StudentsData = StudentsData
-      StudentsData.forEach((element: any) => {
-        if (element.name == this.route.snapshot.paramMap.get('name')!) {
+    var arg = this.route.snapshot.paramMap.get('arg')!
+    if (arg != 'none') {
+      /*
+      a = time
+      g = gender
+      I = studentId
+      s = topicId
+      */
+      var a1
+      var a2
+      var args = arg.split('and')
+      switch (args[0].slice(0, 1)) {
+        case 'a':
+          a1 = 'startTime=' + args[0].split('a')[1] + '&EndTime=' + args[0].split('a')[1]
+          break
+        case 'g':
+          a1 = 'Gender=' + args[0].split('g')[1]
+          break
+        case 'I':
+          a1 = 'studentId=' + args[0].split('I')[1]
+          break
+        case 's':
+          a1 = 'TopicId=' + args[0].split('s')[1]
+          break
+      }
+      if (args.length > 1) {
+        switch (args[1].slice(0, 1)) {
+          case 'a':
+            a2 = 'startTime=' + args[1].split('a')[1] + '&EndTime=' + args[1].split('a')[1]
+            break
+          case 'g':
+            a2 = 'Gender=' + args[1].split('g')[1]
+            break
+          case 'I':
+            a2 = 'studentId=' + args[1].split('I')[1]
+            break
+          case 's':
+            a2 = 'TopicId=' + args[1].split('s')[1]
+            break
+        }
+      }
+      console.log(a1 + '&' + a2)
+
+      this.HttpsService.getSearch(a1 + '&' + a2).subscribe(StudentsData => {
+        this.StudentsData = StudentsData
+        StudentsData.forEach((element: any) => {
           var studentInfo = {
             name: element.name, studentId: element.studentId, topic: element.topic, answerSpeedSecond: element.answerSpeedSecond
           }
@@ -51,9 +93,21 @@ export class AnalyzeComponent implements OnInit {
           this.dataSource = this.ELEMENT_DATA;
           var exportInfo = [element.name, element.studentId, element.topic, element.answerSpeedSecond]
           this.data.push(exportInfo)
-          console.log(this.data)
-        }
-      });
-    })
+        });
+      })
+    } else {
+      this.HttpsService.getScores().subscribe(StudentsData => {
+        this.StudentsData = StudentsData
+        StudentsData.forEach((element: any) => {
+          var studentInfo = {
+            name: element.name, studentId: element.studentId, topic: element.topic, answerSpeedSecond: element.answerSpeedSecond
+          }
+          this.ELEMENT_DATA.push(studentInfo)
+          this.dataSource = this.ELEMENT_DATA;
+          var exportInfo = [element.name, element.studentId, element.topic, element.answerSpeedSecond]
+          this.data.push(exportInfo)
+        });
+      })
+    }
   }
 }

@@ -19,11 +19,11 @@ export class EditStudentComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    console.log(this.studentId)
     this.getStudents()
   }
   getStudents(): void {
     this.HttpsService.getStudents().subscribe(StudentData => {
-      console.log(StudentData)
       StudentData.forEach((element: any) => {
         if (element.accountId == this.route.snapshot.paramMap.get('accountId')!) {
           this.name = element.name
@@ -32,28 +32,45 @@ export class EditStudentComponent implements OnInit {
           this.schoolName = element.schoolName
           this.gender = element.gender
           this.accountId = element.accountId
-
+          this.StudentData = element
         }
       });
     })
+    console.log(this.studentId)
   }
   updateStudents(): void {
-    var updateData = {
-      "accountId": this.accountId,
-      "studentId": this.studentId,
-      "name": this.name,
-      "class": this.class,
-      "gender": this.gender
-    }
-    console.log(updateData)
-    this.HttpsService.updateStudent(this.accountId, updateData).subscribe(res => {
-      console.log(res)
+    console.log(this.studentId)
+    var update = [{
+      "path": "/StudentId",
+      "op": "replace",
+      "value": this.studentId
+    },
+    {
+      "path": "/name",
+      "op": "replace",
+      "value": this.name
+    },
+    {
+      "path": "/class",
+      "op": "replace",
+      "value": this.class
+    },
+    {
+      "path": "/gender",
+      "op": "replace",
+      "value": this.gender
+    }]
+    console.log(update)
+    this.HttpsService.updateStudent(this.accountId, update).subscribe(res => {
+
       if (res.status == 200 && res.body == true) {
         Swal.fire({
           title: '成功',
           icon: 'success',
           text: '修改成功！',
           confirmButtonText: '好的'
+        }).then((res) => {
+          location.href = '/StudentInfo'
         })
       } else {
         Swal.fire({
