@@ -14,7 +14,7 @@
       <select *ngIf="one == '作答結果'" class="loginInput mt-3">
         <option *ngFor="let c of filters4" [value]="c">{{c}}</option>
       </select>
-      <input *ngIf="one != '性別' && one != '作答大題'" [(ngModel)]="oneAns" [disabled]="none ? true : false" type="text" class="loginInput mt-3">
+      <input *ngIf="one != '性別' && one != '作答大題'" [placeholder]="tip1" [(ngModel)]="oneAns" [disabled]="none ? true : false" type="text" class="loginInput mt-3">
     </div>
     <div class="row mt-3">
       <select #d [(ngModel)]="two" (change)="non(d.value)" [disabled]="none ? true : false" class="loginInput">
@@ -29,7 +29,7 @@
       <select *ngIf="two == '作答結果'" class="loginInput mt-3">
         <option *ngFor="let c of filters4" [value]="c">{{c}}</option>
       </select>
-      <input *ngIf="two != '性別' && two != '作答大題'" [(ngModel)]="twoAns" type="text"[disabled]="no ? true : false" class="loginInput mt-3">
+      <input *ngIf="two != '性別' && two != '作答大題'" [placeholder]="tip2" [(ngModel)]="twoAns" type="text"[disabled]="no ? true : false" class="loginInput mt-3">
     </div>
     <div class="row mt-3">
       <button (click)="search()" class="btn btn-primary">搜尋</button>

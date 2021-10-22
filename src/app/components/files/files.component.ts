@@ -11,6 +11,8 @@ export class FilesComponent implements OnInit {
   filters2: any = [];
   filters3: any = ['男', '女']
   filters4: any = ['對', '錯']
+  tip1 = '請選擇選項'
+  tip2 = ''
   no: boolean = true;
   one = '無'
   two = ''
@@ -51,21 +53,38 @@ export class FilesComponent implements OnInit {
     if (Value == '無') {
       this.filters2 = [];
       this.none = true
+      this.tip1 = '請選擇選項'
     } else {
       this.two = '無'
+      this.tip2 = '請選擇選項'
       this.filters2 = ['無', '作答時間', '性別', '作答結果', '學生學號', '作答大題'];
       var option1 = this.filters1.indexOf(Value)
       this.filters2.splice(option1, 1);
       this.none = false
+    }
+    if (Value == '作答結果') {
+      this.tip1 = '請輸入數量'
+    } else if (Value == '學生學號') {
+      this.tip1 = '請輸入學號'
+    } else if (Value == '作答時間') {
+      this.tip1 = '請輸入作答秒數'
     }
   }
   non(Value: any): void {
     if (Value == '無') {
       this.twoAns = ''
       this.no = true
+      this.tip2 = '請選擇選項'
     } else {
       this.twoAns = ''
       this.no = false
+    }
+    if (Value == '作答結果') {
+      this.tip2 = '請輸入數量'
+    } else if (Value == '學生學號') {
+      this.tip2 = '請輸入學號'
+    } else if (Value == '作答時間') {
+      this.tip2 = '請輸入作答秒數'
     }
   }
 
