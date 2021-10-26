@@ -8,12 +8,12 @@ import * as  xlsx from 'xlsx'
 })
 export class ImportComponent implements OnInit {
   fileName: string = '';
-  studentInfo: any;
+  studentTemp: any;
+  studentInfo: any = [];
   data: any = [['學號', '姓名', '班級', '性別']]
   constructor(private HttpsService: HttpsService,) { }
 
   ngOnInit(): void {
-    console.log(this.data)
   }
   changeListener(event: any) {
     var files: File = event.target.files[0];
@@ -22,7 +22,17 @@ export class ImportComponent implements OnInit {
       reader.readAsText(files);
       reader.onload = (e) => {
         let csv: string = reader.result as string;
-        this.studentInfo = csv.split(',')
+        this.studentTemp = csv.split(',')
+        this.studentTemp.forEach((element: any) => {
+          if (element.split('\r\n').length > 1) {
+            this.studentInfo.push(element.split('\r\n')[0])
+            if (element.split('\r\n')[1] != '') {
+              this.studentInfo.push(element.split('\r\n')[1])
+            }
+          } else {
+            this.studentInfo.push(element)
+          }
+        });
       }
     }
   }
@@ -33,15 +43,21 @@ export class ImportComponent implements OnInit {
     xlsx.writeFile(wb, '範例檔案.csv');
   }
   sendScore() {
-    var gender = true;
-    if (this.studentInfo[3] == '女') {
-      gender = false
+    var count = this.studentInfo.length / 4
+    var sendInfo = []
+    console.log(count)
+    for (var i = 0; i < count; i++) {
+      var gender = true
+      if (this.studentInfo[3 + 4 * i] == '女') {
+        gender = false
+      }
+      var Info = {
+        studentId: this.studentInfo[0 + 4 * i], schoolId: 1,
+        name: this.studentInfo[1 + 4 * i], class: this.studentInfo[2 + 4 * i],
+        gender: gender
+      }
+      sendInfo.push(Info)
     }
-    var sendInfo = [{
-      studentId: this.studentInfo[0], schoolId: 0,
-      name: this.studentInfo[1], class: this.studentInfo[2],
-      gender: gender
-    }]
     this.HttpsService.uploadProjectRequest(sendInfo).subscribe(res => {
       if (res.status == 200) {
         Swal.fire({
