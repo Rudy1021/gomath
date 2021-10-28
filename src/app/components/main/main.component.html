@@ -20,9 +20,12 @@
       </div>
     </div>
     <div class="row mt-3">
-      <div class="col-4"></div>
+      <div class="col-2"></div>
       <div class="col-4">
         <button (click)="output()" class="btn btn-primary">匯出總作答總表</button>
+      </div>
+      <div class="col-4">
+        <a [routerLink]="['/ansPage']" class="btn btn-primary">查詢學生作答</a>
       </div>
     </div>
   </div>

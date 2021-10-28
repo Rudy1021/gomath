@@ -9,7 +9,8 @@ import { FilesComponent } from './components/files/files.component';
 import { MainComponent } from './components/main/main.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
+import { AnsPageComponent } from './components/ans-page/ans-page.component';
+import { SearchPageComponent } from './components/search-page/search-page.component';
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -20,7 +21,9 @@ const routes: Routes = [
   { path: 'import', component: ImportComponent },
   { path: 'editStudent/:accountId', component: EditStudentComponent },
   { path: 'topic', component: TopicComponent },
-  { path: 'newGroup', component: NewGroupComponent }
+  { path: 'newGroup', component: NewGroupComponent },
+  { path: 'ansPage', component: AnsPageComponent },
+  { path: 'searchPage/:id', component: SearchPageComponent },
 ];
 
 @NgModule({

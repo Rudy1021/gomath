@@ -47,9 +47,10 @@ export class AnalyzeComponent implements OnInit {
       g = gender
       I = studentId
       s = topicId
+      c = correct
       */
-      var a1
-      var a2
+      var a1 = ''
+      var a2 = ''
       var args = arg.split('and')
       switch (args[0].slice(0, 1)) {
         case 'a':
@@ -63,6 +64,9 @@ export class AnalyzeComponent implements OnInit {
           break
         case 's':
           a1 = 'TopicId=' + args[0].split('s')[1]
+          break
+        case 'c':
+          a1 = 'correct=' + args[0].split('c')[1]
           break
       }
       if (args.length > 1) {
@@ -79,18 +83,30 @@ export class AnalyzeComponent implements OnInit {
           case 's':
             a2 = 'TopicId=' + args[1].split('s')[1]
             break
+          case 'c':
+            a2 = 'correct=' + args[1].split('c')[1]
+            break
+          default:
+            a2 = ''
+            break
         }
       }
-      console.log(a1 + '&' + a2)
-
-      this.HttpsService.getSearch(a1 + '&' + a2).subscribe(StudentsData => {
+      var rou = ''
+      if (a2 != '') {
+        rou = a1 + '&' + a2
+      } else {
+        rou = a1
+      }
+      this.HttpsService.getSearch(rou).subscribe(StudentsData => {
         this.StudentsData = StudentsData
         StudentsData.forEach((element: any) => {
           var studentInfo = {
             name: element.name, studentId: element.studentId, topic: element.topic, answerSpeedSecond: element.answerSpeedSecond
           }
+          console.log(this.ELEMENT_DATA)
           this.ELEMENT_DATA.push(studentInfo)
           this.dataSource = this.ELEMENT_DATA;
+          console.log(this.dataSource)
           var exportInfo = [element.name, element.studentId, element.topic, element.answerSpeedSecond]
           this.data.push(exportInfo)
         });

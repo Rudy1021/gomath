@@ -16,6 +16,8 @@ import { StudentInfoComponent } from './components/student-info/student-info.com
 import { EditStudentComponent } from './components/edit-student/edit-student.component';
 import { TopicComponent } from './components/topic/topic.component';
 import { NewGroupComponent } from './components/new-group/new-group.component';
+import { AnsPageComponent } from './components/ans-page/ans-page.component';
+import { SearchPageComponent } from './components/search-page/search-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +30,8 @@ import { NewGroupComponent } from './components/new-group/new-group.component';
     EditStudentComponent,
     TopicComponent,
     NewGroupComponent,
+    AnsPageComponent,
+    SearchPageComponent,
   ],
   imports: [
     BrowserModule,

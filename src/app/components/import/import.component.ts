@@ -11,7 +11,7 @@ export class ImportComponent implements OnInit {
   studentTemp: any;
   studentInfo: any = [];
   data: any = [['學號', '姓名', '班級', '性別']]
-  constructor(private HttpsService: HttpsService,) { }
+  constructor(private HttpsService: HttpsService) { }
 
   ngOnInit(): void {
   }
@@ -59,7 +59,8 @@ export class ImportComponent implements OnInit {
       sendInfo.push(Info)
     }
     this.HttpsService.uploadProjectRequest(sendInfo).subscribe(res => {
-      if (res.status == 200) {
+      console.log(res.body)
+      if (res.status == 200 && res.body == true) {
         Swal.fire({
           title: '成功',
           icon: 'success',
@@ -72,7 +73,7 @@ export class ImportComponent implements OnInit {
         Swal.fire({
           title: '錯誤',
           icon: 'error',
-          text: '新增失敗！請檢查帳號是否重複！',
+          text: '新增失敗！請檢查學號是否重複！',
           confirmButtonText: '好的'
         })
       }

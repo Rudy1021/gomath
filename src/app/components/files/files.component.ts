@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 export class FilesComponent implements OnInit {
   StudentsData: any;
   none: boolean = true;
+  correct = '對'
   filters1: any = ['無', '作答時間', '性別', '作答結果', '學生學號', '作答大題'];
   filters2: any = [];
   filters3: any = ['男', '女']
@@ -114,6 +115,10 @@ export class FilesComponent implements OnInit {
     } else {
       g = false
     }
+    var c = true
+    if (this.correct != '對') {
+      c = false
+    }
     if (this.one == '無') {
       location.href = '/analyze/none'
     } else if (this.one == '作答時間') {
@@ -121,8 +126,8 @@ export class FilesComponent implements OnInit {
         location.href = '/analyze/a' + this.oneAns
       } else if (this.two == '性別') {
         location.href = '/analyze/a' + this.oneAns + 'andg' + g
-      } else if (this.two == '作答結果') {//
-        location.href = '/analyze/a' + this.oneAns + 'ands' + this.twoAns
+      } else if (this.two == '作答結果') {
+        location.href = '/analyze/a' + this.oneAns + 'andc' + c
       } else if (this.two == '學生學號') {
         location.href = '/analyze/a' + this.oneAns + 'andI' + this.twoAns
       } else if (this.two == '作答大題') {
@@ -133,44 +138,44 @@ export class FilesComponent implements OnInit {
         location.href = '/analyze/g' + g
       } else if (this.two == '作答時間') {
         location.href = '/analyze/a' + this.twoAns + 'andg' + g
-      } else if (this.two == '作答結果') {//
-        location.href = '/analyze/g' + g + 'ands' + this.twoAns
+      } else if (this.two == '作答結果') {
+        location.href = '/analyze/g' + g + 'andc' + c
       } else if (this.two == '學生學號') {
         location.href = '/analyze/g' + g + 'angI' + this.twoAns
       } else if (this.two == '作答大題') {
         location.href = '/analyze/s' + s + 'andg' + g
       }
-    } else if (this.one == '作答結果') { //
+    } else if (this.one == '作答結果') {
       if (this.two == '無') {
-        location.href = '/analyze/startTime=' + this.oneAns + '&EndTime=' + this.oneAns
+        location.href = '/analyze/c' + c
       } else if (this.two == '性別') {
-        location.href = '/analyze/g' + g + '&Gender=' + g
+        location.href = '/analyze/g' + g + 'andc' + c
       } else if (this.two == '作答時間') {
-        location.href = '/analyze/startTime=' + this.twoAns + '&EndTime=' + this.twoAns
+        location.href = '/analyze/a' + this.twoAns + 'andc' + c
       } else if (this.two == '學生學號') {
-        location.href = '/analyze/startTime=' + this.oneAns + '&EndTime=' + this.oneAns + '&studentId=' + this.twoAns
+        location.href = '/analyze/c' + c + 'andI' + this.twoAns
       } else if (this.two == '作答大題') {
-        location.href = '/analyze/startTime=' + this.oneAns + '&EndTime=' + this.oneAns
+        location.href = '/analyze/s' + s + 'andc' + c
       }
     } else if (this.one == '學生學號') {
       if (this.two == '無') {
         location.href = '/analyze/I' + this.oneAns
       } else if (this.two == '性別') {
         location.href = '/analyze/g' + g + 'andI' + this.oneAns
-      } else if (this.two == '作答結果') { //
-        location.href = '/analyze/startTime=' + this.oneAns + '&EndTime=' + this.oneAns
+      } else if (this.two == '作答結果') {
+        location.href = '/analyze/I' + this.oneAns + 'andc' + c
       } else if (this.two == '作答時間') {
         location.href = '/analyze/a' + this.twoAns + 'andI' + this.oneAns
       } else if (this.two == '作答大題') {
-        location.href = '/analyze/s' + this.twoAns + 'ands' + s
+        location.href = '/analyze/I' + this.twoAns + 'ands' + s
       }
     } else if (this.one == '作答大題') {
       if (this.two == '無') {
         location.href = '/analyze/s' + s
       } else if (this.two == '性別') {
         location.href = '/analyze/g' + g + 'ands' + s
-      } else if (this.two == '作答結果') { //
-        location.href = '/analyze/startTime=' + this.oneAns + '&EndTime=' + this.oneAns
+      } else if (this.two == '作答結果') {
+        location.href = '/analyze/s' + s + 'andc' + c
       } else if (this.two == '學生學號') {
         location.href = '/analyze/s' + s + 'andI' + this.twoAns
       } else if (this.two == '作答時間') {

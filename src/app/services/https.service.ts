@@ -44,4 +44,8 @@ export class HttpsService {
     const url = `${this.BaseUrl}/Topic/NewTopicCusomizedSettings`;
     return this.http.post(url, Request)
   }
+  updateFeedback(Request: any, feedbackId: string) {
+    const url = `${this.BaseUrl}/Account/PatchStudentAnswer/${feedbackId}`;
+    return this.http.patch(url, Request)
+  }
 }

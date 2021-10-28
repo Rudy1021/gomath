@@ -33,6 +33,7 @@ export class EditStudentComponent implements OnInit {
           this.gender = element.gender
           this.accountId = element.accountId
           this.StudentData = element
+
         }
       });
     })
