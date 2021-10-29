@@ -31,17 +31,18 @@
           <th mat-header-cell *matHeaderCellDef> 下拉式選單修正對錯 </th>
           <td mat-cell *matCellDef="let element; let i = index;">
             <select [(ngModel)]="changeArray[i]">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
+              <option>對</option>
+              <option>錯</option>
           </select>
         </td>
         </ng-container>
 
         <ng-container matColumnDef="題目手寫圖片">
           <th mat-header-cell *matHeaderCellDef> 題目手寫圖片 </th>
-          <td mat-cell *matCellDef="let element"><img [src]="'data:image/png;base64,'+element.picture"></td>
+          <td mat-cell *matCellDef="let element">
+            <img *ngIf="element.picture != null" img [src]="'data:image/png;base64,'+element.picture">
+            <h4 *ngIf="element.picture == null">無手寫圖片</h4>
+          </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -58,7 +59,7 @@
     <div class="row mt-3 noPrint">
       <div class="col-4"></div>
       <div class="col-4">
-        <a [routerLink]="['/files']" class="btn btn-primary">重新選擇資料</a>
+        <a [routerLink]="['/ansPage']" class="btn btn-primary">重新選擇資料</a>
       </div>
     </div>
   </div>

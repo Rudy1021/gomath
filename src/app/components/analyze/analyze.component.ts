@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as  xlsx from 'xlsx'
 import { HttpsService } from './../../services/https.service';
 import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 export interface PeriodicElement {
   name: string;
   studentId: string;
@@ -19,7 +20,7 @@ export class AnalyzeComponent implements OnInit {
   displayedColumns: string[] = ['name', 'studentId', 'topic', 'answerSpeedSecond'];
   StudentsData: any;
   dataSource: any;
-  data: any = [
+  data: any = [['姓名', '學號', '作答大題', '答題時間']
   ]
   constructor(
     private HttpsService: HttpsService,
@@ -106,10 +107,20 @@ export class AnalyzeComponent implements OnInit {
           console.log(this.ELEMENT_DATA)
           this.ELEMENT_DATA.push(studentInfo)
           this.dataSource = this.ELEMENT_DATA;
-          console.log(this.dataSource)
           var exportInfo = [element.name, element.studentId, element.topic, element.answerSpeedSecond]
           this.data.push(exportInfo)
+          console.log(this.data)
         });
+        if (StudentsData.length <= 0) {
+          Swal.fire({
+            title: '錯誤',
+            icon: 'error',
+            text: '查無資料！',
+            confirmButtonText: '好的'
+          }).then(res => {
+            location.href = '/files'
+          })
+        }
       })
     } else {
       this.HttpsService.getScores().subscribe(StudentsData => {
@@ -123,6 +134,16 @@ export class AnalyzeComponent implements OnInit {
           var exportInfo = [element.name, element.studentId, element.topic, element.answerSpeedSecond]
           this.data.push(exportInfo)
         });
+        if (StudentsData.length <= 0) {
+          Swal.fire({
+            title: '錯誤',
+            icon: 'error',
+            text: '查無資料！',
+            confirmButtonText: '好的'
+          }).then(res => {
+            location.href = '/files'
+          })
+        }
       })
     }
   }

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpsService } from './../../services/https.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 export interface a {
   wrong: string;
   correct: any;
   write: any;
-  writeorwrong: any;
   picture: any;
 }
 @Component({
@@ -21,6 +21,7 @@ export class SearchPageComponent implements OnInit {
   ELE: a[] = []
   feedbackId: any = [];
   answer: any = []
+  correctAns: any = []
   displayedColumns: any = ['錯的題目', '正解', '題目辨識手寫結果', '下拉式選單修正對錯', '題目手寫圖片']
   constructor(private route: ActivatedRoute,
     private HttpsService: HttpsService) { }
@@ -31,10 +32,11 @@ export class SearchPageComponent implements OnInit {
   getStudent() {
     var ans = ''
     this.HttpsService.getSearch("studentId=" + this.route.snapshot.paramMap.get('id')!).subscribe((res: any) => {
-      console.log(res)
+      var judge: any = []
       res.forEach((element: any) => {
         this.feedbackId.push(element.feedbackId)
         this.answer.push(element.answer)
+        this.correctAns.push(element.topicAnswer)
         if (element.answer == '' || element.answer == null) {
           ans = '無作答'
         } else if (element.answer == '1') {
@@ -47,11 +49,18 @@ export class SearchPageComponent implements OnInit {
         } else if (element.answer == '4') {
           ans = '4'
         }
+        if (element.image == '' || element.image == null) {
+
+        }
+        if (element.topicAnswer == ans) {
+          judge.push('對')
+        } else {
+          judge.push('錯')
+        }
         var datas = {
-          wrong: element.topicId,
+          wrong: element.topic,
           correct: element.topicAnswer,
           write: ans,
-          writeorwrong: '1',
           picture: element.image
         }
         this.ELE.push(datas)
@@ -59,23 +68,29 @@ export class SearchPageComponent implements OnInit {
       this.dataSource = this.ELE
       this.changeArray.length = this.dataSource.length
       for (var i = 0; i < this.changeArray.length; i++) {
-        this.changeArray[i] = 1
+        this.changeArray[i] = judge[i]
       }
-      //this.datas = res
     })
   }
   submit() {
     console.log(this.feedbackId)
     console.log(this.changeArray)
     for (var i = 0; i < this.changeArray.length; i++) {
-      if (this.changeArray[i] != this.answer[i]) {
+      if (this.changeArray[i] == '對' && this.answer[i] != this.correctAns[i]) {
         var sub = [{
           "path": "/answer",
           "op": "replace",
-          "value": this.changeArray[i]
+          "value": this.correctAns[i]
         }]
         this.HttpsService.updateFeedback(sub, this.feedbackId[i]).subscribe((res: any) => {
-          console.log(res)
+          Swal.fire({
+            title: '成功',
+            icon: 'success',
+            text: '修改成功！',
+            confirmButtonText: '好的'
+          }).then(res => {
+            location.reload
+          })
         })
       }
     }

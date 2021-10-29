@@ -20,13 +20,13 @@ export class FilesComponent implements OnInit {
   oneAns = ''
   twoAns = ''
   gen = '男'
-  gend1 = ''
-  gend2 = ''
+  gend1 = '男'
+  gend2 = '男'
   topic1: any = []
   topic2: any = []
   topic: any = []
-  topics1 = ''
-  topics2 = ''
+  topics1 = '圖形辨識計數'
+  topics2 = '圖形辨識計數'
 
   constructor(
     private HttpsService: HttpsService

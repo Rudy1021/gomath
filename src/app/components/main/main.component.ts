@@ -9,7 +9,7 @@ import * as  xlsx from 'xlsx'
 export class MainComponent implements OnInit {
 
   constructor(private HttpsService: HttpsService,) { }
-  data: any = []
+  data: any = [['姓名', '學號', '作答大題', '答題時間']]
   ngOnInit(): void {
   }
   output() {
@@ -28,6 +28,12 @@ export class MainComponent implements OnInit {
       xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
       /* save to file */
       xlsx.writeFile(wb, '總學生成績.csv');
+      Swal.fire({
+        title: '成功',
+        icon: 'success',
+        text: '匯出成功！',
+        confirmButtonText: '好的'
+      })
     })
 
   }
