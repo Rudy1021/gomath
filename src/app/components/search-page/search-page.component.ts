@@ -31,7 +31,7 @@ export class SearchPageComponent implements OnInit {
   }
   getStudent() {
     var ans = ''
-    this.HttpsService.getSearch("studentId=" + this.route.snapshot.paramMap.get('id')!).subscribe((res: any) => {
+    this.HttpsService.getSearch("student_id=" + this.route.snapshot.paramMap.get('id')!).subscribe((res: any) => {
       var judge: any = []
       res.forEach((element: any) => {
         this.feedbackId.push(element.feedbackId)

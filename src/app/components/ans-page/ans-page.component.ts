@@ -25,7 +25,7 @@ export class AnsPageComponent implements OnInit {
   search() {
     console.log(this.Id)
     if (this.Id != '') {
-      this.HttpsService.getSearch("studentId=" + this.Id).subscribe((res: any) => {
+      this.HttpsService.getSearch("student_id=" + this.Id).subscribe((res: any) => {
         if (res.length <= 0) {
           Swal.fire({
             title: '錯誤',

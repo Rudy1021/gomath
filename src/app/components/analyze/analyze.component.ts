@@ -17,10 +17,10 @@ export interface PeriodicElement {
 
 export class AnalyzeComponent implements OnInit {
   ELEMENT_DATA: PeriodicElement[] = [];
-  displayedColumns: string[] = ['name', 'studentId', 'topic', 'answerSpeedSecond'];
+  displayedColumns: string[] = ['name', 'studentId', 'school', 'gender', 'topic', 'answer', 'studentanswer', 'correct', 'answerSpeedSecond'];
   StudentsData: any;
   dataSource: any;
-  data: any = [['姓名', '學號', '作答大題', '答題時間']
+  data: any = [['姓名', '學號', '國小', '性別', '題目', '題目正解', '學生作答答案', '結果對錯', '答題時間']
   ]
   constructor(
     private HttpsService: HttpsService,
@@ -99,17 +99,27 @@ export class AnalyzeComponent implements OnInit {
         rou = a1
       }
       this.HttpsService.getSearch(rou).subscribe(StudentsData => {
+        console.log(StudentsData)
         this.StudentsData = StudentsData
         StudentsData.forEach((element: any) => {
-          var studentInfo = {
-            name: element.name, studentId: element.studentId, topic: element.topic, answerSpeedSecond: element.answerSpeedSecond
+          var g = '男'
+          if (element.gender == false) {
+            g = '女'
           }
-          console.log(this.ELEMENT_DATA)
+          var correct = '對'
+          if (element.topicAnswer != element.answer) {
+            correct = '錯'
+          }
+          var studentInfo = {
+            name: element.name, studentId: element.studentId, topic: element.topic, answerSpeedSecond: element.answerSpeedSecond,
+            school: '未給', gender: g, answer: element.topicAnswer, studentanswer: element.answer,
+            correct: correct
+          }
           this.ELEMENT_DATA.push(studentInfo)
           this.dataSource = this.ELEMENT_DATA;
-          var exportInfo = [element.name, element.studentId, element.topic, element.answerSpeedSecond]
+          var exportInfo = [element.name, element.studentId, '未給', g, element.topic, element.topicAnswer, element.answer,
+            correct, element.answerSpeedSecond]
           this.data.push(exportInfo)
-          console.log(this.data)
         });
         if (StudentsData.length <= 0) {
           Swal.fire({
@@ -126,12 +136,23 @@ export class AnalyzeComponent implements OnInit {
       this.HttpsService.getScores().subscribe(StudentsData => {
         this.StudentsData = StudentsData
         StudentsData.forEach((element: any) => {
+          var g = '男'
+          if (element.gender == false) {
+            g = '女'
+          }
+          var correct = '對'
+          if (element.topicAnswer != element.answer) {
+            correct = '錯'
+          }
           var studentInfo = {
-            name: element.name, studentId: element.studentId, topic: element.topic, answerSpeedSecond: element.answerSpeedSecond
+            name: element.name, studentId: element.studentId, topic: element.topic, answerSpeedSecond: element.answerSpeedSecond,
+            school: '未給', gender: g, answer: element.topicAnswer, studentanswer: element.answer,
+            correct: correct
           }
           this.ELEMENT_DATA.push(studentInfo)
           this.dataSource = this.ELEMENT_DATA;
-          var exportInfo = [element.name, element.studentId, element.topic, element.answerSpeedSecond]
+          var exportInfo = [element.name, element.studentId, '未給', g, element.topic, element.topicAnswer, element.answer,
+            correct, element.answerSpeedSecond]
           this.data.push(exportInfo)
         });
         if (StudentsData.length <= 0) {

@@ -23,6 +23,11 @@ export class ImportComponent implements OnInit {
       reader.onload = (e) => {
         let csv: string = reader.result as string;
         this.studentTemp = csv.split(',')
+        console.log(this.studentTemp)
+        if (this.studentTemp[0] == '學號') {
+          this.studentTemp.splice(0, 3)
+          this.studentTemp[0] = this.studentTemp[0].split('\r\n')[1]
+        }
         this.studentTemp.forEach((element: any) => {
           if (element.split('\r\n').length > 1) {
             this.studentInfo.push(element.split('\r\n')[0])
@@ -35,6 +40,7 @@ export class ImportComponent implements OnInit {
         });
       }
     }
+    console.log(this.studentInfo)
   }
   daochu() {
     const ws: xlsx.WorkSheet = xlsx.utils.aoa_to_sheet(this.data);
@@ -45,7 +51,6 @@ export class ImportComponent implements OnInit {
   sendScore() {
     var count = this.studentInfo.length / 4
     var sendInfo = []
-    console.log(count)
     for (var i = 0; i < count; i++) {
       var gender = true
       if (this.studentInfo[3 + 4 * i] == '女') {
@@ -58,34 +63,44 @@ export class ImportComponent implements OnInit {
       }
       sendInfo.push(Info)
     }
-    this.HttpsService.uploadProjectRequest(sendInfo).subscribe(res => {
-      console.log(res.body)
-      if (res.status == 200 && res.body == true) {
-        Swal.fire({
-          title: '成功',
-          icon: 'success',
-          text: '新增成功！即將返回主頁面',
-          confirmButtonText: '好的'
-        }).then((result) => {
-          location.href = '/main'
-        })
-      } else {
-        Swal.fire({
-          title: '錯誤',
-          icon: 'error',
-          text: '新增失敗！請檢查學號是否重複！',
-          confirmButtonText: '好的'
-        })
-      }
-    }, err => {
-      if (err.status == 500) {
-        Swal.fire({
-          title: '錯誤',
-          icon: 'error',
-          text: '新增失敗！請檢查帳號是否重複！',
-          confirmButtonText: '好的'
-        })
-      }
-    })
+    console.log(sendInfo.length)
+    if (sendInfo.length >= 1) {
+      this.HttpsService.uploadProjectRequest(sendInfo).subscribe(res => {
+        if (res.status == 200 && res.body == true) {
+          Swal.fire({
+            title: '成功',
+            icon: 'success',
+            text: '新增成功！即將返回主頁面',
+            confirmButtonText: '好的'
+          }).then((result) => {
+            location.href = '/main'
+          })
+        } else {
+          Swal.fire({
+            title: '錯誤',
+            icon: 'error',
+            text: '新增失敗！請檢查學號是否重複！',
+            confirmButtonText: '好的'
+          })
+        }
+      }, err => {
+        if (err.status == 500) {
+          Swal.fire({
+            title: '錯誤',
+            icon: 'error',
+            text: '新增失敗！請檢查帳號是否重複！',
+            confirmButtonText: '好的'
+          })
+        }
+      })
+    } else {
+      Swal.fire({
+        title: '錯誤',
+        icon: 'error',
+        text: '未選擇檔案！',
+        confirmButtonText: '好的'
+      })
+    }
+
   }
 }
