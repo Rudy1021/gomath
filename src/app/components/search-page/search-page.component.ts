@@ -32,7 +32,22 @@ export class SearchPageComponent implements OnInit {
   getStudent() {
     var ans = ''
     this.HttpsService.getSearch("student_id=" + this.route.snapshot.paramMap.get('id')!).subscribe((res: any) => {
+      console.log(res)
       var judge: any = []
+      var n = res.length
+      for (let i = 0; i < n - 1; i++) {
+        // 3
+        for (let j = 0; j < n - 1 - i; j++) {
+          // 4
+          if (res[j].createdTime > res[j + 1].createdTime) {
+            // 5
+            const temp = res[j];
+            res[j] = res[j + 1];
+            res[j + 1] = temp;
+          }
+        }
+      }
+      console.log(res)
       res.forEach((element: any) => {
         this.feedbackId.push(element.feedbackId)
         this.answer.push(element.answer)

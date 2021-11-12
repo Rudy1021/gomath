@@ -40,7 +40,6 @@ export class ImportComponent implements OnInit {
         });
       }
     }
-    console.log(this.studentInfo)
   }
   daochu() {
     const ws: xlsx.WorkSheet = xlsx.utils.aoa_to_sheet(this.data);
