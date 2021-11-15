@@ -47,27 +47,14 @@ export class SearchPageComponent implements OnInit {
           }
         }
       }
-      console.log(res)
       res.forEach((element: any) => {
         this.feedbackId.push(element.feedbackId)
         this.answer.push(element.answer)
         this.correctAns.push(element.topicAnswer)
         if (element.answer == '' || element.answer == null) {
-          ans = '無作答'
-        } else if (element.answer == '1') {
-          ans = '1'
-        } else if (element.answer == '2') {
-          ans = '2'
+          element.answer = '無作答'
         }
-        else if (element.answer == '3') {
-          ans = '3'
-        } else if (element.answer == '4') {
-          ans = '4'
-        }
-        if (element.image == '' || element.image == null) {
-
-        }
-        if (element.topicAnswer == ans) {
+        if (element.topicAnswer == element.answer) {
           judge.push('對')
         } else {
           judge.push('錯')
@@ -75,7 +62,7 @@ export class SearchPageComponent implements OnInit {
         var datas = {
           wrong: element.topic,
           correct: element.topicAnswer,
-          write: ans,
+          write: element.answer,
           picture: element.image
         }
         this.ELE.push(datas)
@@ -87,28 +74,15 @@ export class SearchPageComponent implements OnInit {
       }
     })
   }
-  submit() {
-    console.log(this.feedbackId)
-    console.log(this.changeArray)
-    for (var i = 0; i < this.changeArray.length; i++) {
-      if (this.changeArray[i] == '對' && this.answer[i] != this.correctAns[i]) {
-        var sub = [{
-          "path": "/answer",
-          "op": "replace",
-          "value": this.correctAns[i]
-        }]
-        this.HttpsService.updateFeedback(sub, this.feedbackId[i]).subscribe((res: any) => {
-          Swal.fire({
-            title: '成功',
-            icon: 'success',
-            text: '修改成功！',
-            confirmButtonText: '好的'
-          }).then(res => {
-            location.reload
-          })
-        })
-      }
+  submit(i: number) {
+    if (this.changeArray[i] == '對' && this.answer[i] != this.correctAns[i]) {
+      var sub = [{
+        "path": "/answer",
+        "op": "replace",
+        "value": this.correctAns[i]
+      }]
+      this.HttpsService.updateFeedback(sub, this.feedbackId[i]).subscribe((res: any) => {
+      })
     }
-
   }
 }
