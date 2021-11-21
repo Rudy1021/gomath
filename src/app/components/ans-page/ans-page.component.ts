@@ -16,10 +16,11 @@ export class AnsPageComponent implements OnInit {
   }
   getStudents() {
     this.HttpsService.getStudents().subscribe((data: any) => {
-      this.Id = data[0].studentId
       data.forEach((element: any) => {
-        this.studentId.push(element.studentId)
+        var name = element.studentId + '(' + element.name + ')'
+        this.studentId.push(name)
       });
+      this.Id = this.studentId[0]
     })
   }
   search() {

@@ -19,7 +19,6 @@ export class EditStudentComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    console.log(this.studentId)
     this.getStudents()
   }
   getStudents(): void {
@@ -81,6 +80,27 @@ export class EditStudentComponent implements OnInit {
           confirmButtonText: '好的'
         })
       }
+    })
+  }
+  deleteStudent() {
+    Swal.fire({
+      title: '警告',
+      icon: 'warning',
+      text: '確定要刪除嗎？',
+      confirmButtonText: '刪除',
+      showCancelButton: true,
+      cancelButtonText: "取消"
+    }).then((res) => {
+      this.HttpsService.deleteStudent(this.route.snapshot.paramMap.get('accountId')!).subscribe(res => {
+        Swal.fire({
+          title: '成功！',
+          icon: 'success',
+          text: '刪除成功！',
+          confirmButtonText: '好的',
+        }).then((res) => {
+          location.href = '/StudentInfo'
+        })
+      })
     })
   }
 }

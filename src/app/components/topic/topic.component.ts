@@ -10,6 +10,7 @@ export class TopicComponent implements OnInit {
   group: any = []
   groupTopic: any
   groupName = ''
+  Time = ''
   t = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
   a = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
   constructor(private HttpsService: HttpsService) { }
@@ -26,25 +27,26 @@ export class TopicComponent implements OnInit {
   }
   getGroup() {
     this.HttpsService.getGroup().subscribe(data => {
+      console.log(data)
       this.group = data
       this.groupTopic = this.group[0].questionTypeId.split(',')
       this.groupTopic.forEach((element: any) => {
         this.a[element - 1] = true
       });
       this.groupName = this.group[0].topicSettingsId
+      this.Time = this.group[0].breakTime
     })
   }
 
   changeGroup(Value: any) {
     this.a = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
     this.groupName = this.group[Value.slice(-1) - 1].topicSettingsId
+    this.Time = this.group[Value.slice(-1) - 1].breakTime
     this.groupTopic = this.group[Value.slice(-1) - 1].questionTypeId.split(',')
     this.groupTopic.forEach((element: any) => {
       this.a[element - 1] = true
     });
 
-    console.log(this.group[Value.slice(-1) - 1])
-    console.log(Value.slice(-1) - 1)
   }
   send() {
     console.log(this.a)
@@ -65,7 +67,8 @@ export class TopicComponent implements OnInit {
       "path": "/questionTypeId",
       "op": "replace",
       "value": update
-    }]
+    },
+    { "op": "replace", "path": "/BreakTime", "value": parseInt(this.Time) }]
     console.log(Data)
     this.HttpsService.updateGroup(num, Data).subscribe(res => {
       Swal.fire({

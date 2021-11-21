@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class HttpsService {
-  private BaseUrl: string = 'http://163.18.22.59';
+  private BaseUrl: string = 'http://163.18.110.100';
   constructor(
     private http: HttpClient
   ) { }
@@ -14,6 +14,19 @@ export class HttpsService {
   }
   getStudents(): Observable<any> {
     return this.http.get(this.BaseUrl + '/Account/StudentList');
+  }
+  getSchools(): Observable<any> {
+    return this.http.get(this.BaseUrl + '/Account/GetSchoolList');
+  }
+  uploadSchool(Request: any) {
+    const url = `${this.BaseUrl}/Account/AddSchool`;
+    return this.http.post(url, Request, {
+      observe: 'response'
+    });
+  }
+  deleteStudent(id: string) {
+    const url = `${this.BaseUrl}/Account/DeleteStudent/${id}`;
+    return this.http.delete(url);
   }
   uploadProjectRequest(Request: any) {
     const url = `${this.BaseUrl}/Account/ImportStudent`;
