@@ -9,35 +9,27 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 export class AnsPageComponent implements OnInit {
   studentId: any = []
   Id: any = ''
+  studentIds: any = []
   constructor(private HttpsService: HttpsService) { }
 
   ngOnInit(): void {
     this.getStudents()
   }
   getStudents() {
-    this.HttpsService.getStudents().subscribe((data: any) => {
+    this.HttpsService.getScores().subscribe((data: any) => {
       data.forEach((element: any) => {
-        var name = element.studentId + '(' + element.name + ')'
-        this.studentId.push(name)
+        if (this.studentIds.find((elements: any) => elements == element.studentId) == undefined) {
+          var name = element.studentId + '(' + element.name + ')'
+          this.studentId.push(name)
+          this.studentIds.push(element.studentId)
+        }
       });
       this.Id = this.studentId[0]
     })
   }
   search() {
-    console.log(this.Id)
     if (this.Id != '') {
-      this.HttpsService.getSearch("student_id=" + this.Id).subscribe((res: any) => {
-        if (res.length <= 0) {
-          Swal.fire({
-            title: '錯誤',
-            icon: 'error',
-            text: '查無資料！',
-            confirmButtonText: '好的'
-          })
-        } else {
-          location.href = '/searchPage/' + this.Id
-        }
-      })
+      location.href = '/searchPage/' + this.Id.split('(')[0]
     }
   }
 }
