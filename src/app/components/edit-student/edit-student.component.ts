@@ -60,7 +60,6 @@ export class EditStudentComponent implements OnInit {
       "op": "replace",
       "value": this.gender
     }]
-    console.log(update)
     this.HttpsService.updateStudent(this.accountId, update).subscribe(res => {
 
       if (res.status == 200 && res.body == true) {

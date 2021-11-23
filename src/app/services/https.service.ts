@@ -24,6 +24,12 @@ export class HttpsService {
       observe: 'response'
     });
   }
+  logouts(id: string, Request: any) {
+    const url = `${this.BaseUrl}/Account/PatchStudent/${id}`;
+    return this.http.patch(url, Request, {
+      observe: 'response'
+    });
+  }
   deleteStudent(id: string) {
     const url = `${this.BaseUrl}/Account/DeleteStudent/${id}`;
     return this.http.delete(url);
