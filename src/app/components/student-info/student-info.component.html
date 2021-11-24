@@ -48,7 +48,7 @@
               <button class="btn btn-warning" [routerLink]="['/editStudent/' + element.accountId]">編輯</button>
             </div>
             <div class="col-6">
-              <button class="btn btn-danger" *ngIf="element.status == '已登入'" (click)="logout(element.accountId)">強制登出</button>
+              <button class="btn btn-danger" *ngIf="element.status == '已登入'" (click)="logout(element.accountId)">解鎖帳號</button>
             </div>
           </div>
         </td>

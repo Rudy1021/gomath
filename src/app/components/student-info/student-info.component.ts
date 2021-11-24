@@ -45,7 +45,7 @@ export class StudentInfoComponent implements OnInit {
     Swal.fire({
       title: '警告！',
       icon: 'warning',
-      text: '確定要登出嗎？',
+      text: '確定要解鎖嗎？',
       confirmButtonText: '確定',
       showCancelButton: true,
       cancelButtonText: '取消'
@@ -64,7 +64,7 @@ export class StudentInfoComponent implements OnInit {
         Swal.fire({
           title: '成功',
           icon: 'success',
-          text: '強制登出成功！',
+          text: '解鎖成功！',
           confirmButtonText: '好的'
         }).then((res) => {
           location.reload

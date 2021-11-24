@@ -22,7 +22,7 @@ export class SearchPageComponent implements OnInit {
   feedbackId: any = [];
   answer: any = []
   correctAns: any = []
-  displayedColumns: any = ['錯的題目', '正解', '題目辨識手寫結果', '下拉式選單修正對錯', '題目手寫圖片']
+  displayedColumns: any = ['題目', '正解', '學生作答（辨識結果）', '修正作答區', '手寫圖片']
   constructor(private route: ActivatedRoute,
     private HttpsService: HttpsService) { }
 
