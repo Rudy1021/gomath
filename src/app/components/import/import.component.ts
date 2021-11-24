@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpsService } from './../../services/https.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import * as  xlsx from 'xlsx'
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   templateUrl: './import.component.html',
   styleUrls: ['./import.component.scss']
@@ -11,7 +12,7 @@ export class ImportComponent implements OnInit {
   studentTemp: any;
   studentInfo: any = [];
   result: any;
-  data: any = [['編號', '年度', '姓名', '學校', '年班', '性別', '身份', '都市化程度']]
+  data: any = [['編號', '年度', '姓名', '學校', '年班', '性別', '身份別', '都市化程度']]
   filetype: any
   constructor(private HttpsService: HttpsService) { }
   arrayBuffer: any
@@ -128,14 +129,9 @@ export class ImportComponent implements OnInit {
           }
           students.push(student)
         });
-        this.HttpsService.uploadProjectRequest(students).subscribe(res => {
-          Swal.fire({
-            title: '成功',
-            icon: 'success',
-            text: '新增成功！即將返回主頁面',
-            confirmButtonText: '好的'
-          })
-        })
+        this.HttpsService.uploadProjectRequest(students).subscribe(
+          value => this.success(value),
+          error => this.error(error))
       })
     } else {
       var count = this.studentInfo.length / 4
@@ -189,6 +185,30 @@ export class ImportComponent implements OnInit {
           confirmButtonText: '好的'
         })
       }
+    }
+  }
+  /** API呼叫成功的處理 */
+  success(value: any) {
+  }
+
+  /** API呼叫失敗的錯誤處理 */
+  error(error: HttpErrorResponse) {
+    if (error.error.text.split(":")[0] == '學號') {
+      Swal.fire({
+        title: '錯誤',
+        icon: 'error',
+        text: '學號' + error.error.text.split(" ")[0].split(':')[1] + '重複！',
+        confirmButtonText: '好的'
+      })
+    } else if (error.error.text == '已完成學生新增作業') {
+      Swal.fire({
+        title: '成功',
+        icon: 'success',
+        text: '已完成學生新增作業',
+        confirmButtonText: '好的'
+      }).then(res => {
+        location.href = '/StudentInfo'
+      })
     }
   }
 }
