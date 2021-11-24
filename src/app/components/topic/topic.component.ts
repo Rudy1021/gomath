@@ -69,7 +69,6 @@ export class TopicComponent implements OnInit {
       "value": update
     },
     { "op": "replace", "path": "/BreakTime", "value": parseInt(this.Time) }]
-    console.log(Data)
     this.HttpsService.updateGroup(num, Data).subscribe(res => {
       Swal.fire({
         title: '成功！',
@@ -77,7 +76,6 @@ export class TopicComponent implements OnInit {
         text: '修改成功！',
         confirmButtonText: '好的'
       }).then(res => {
-        location.reload()
       })
     })
   }

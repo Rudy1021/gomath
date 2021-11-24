@@ -46,7 +46,7 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;let i = index"></tr>
+        <tr [ngClass]="{'danger': correctAns[i] != answer[i]}" mat-row *matRowDef="let row; columns: displayedColumns;let i = index"></tr>
       </table>
 
     </div>
