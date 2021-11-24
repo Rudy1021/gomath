@@ -33,7 +33,8 @@ export class StudentInfoComponent implements OnInit {
           schoolName: element.schoolName,
           grade: element.grade,
           class: element.class,
-          status: status
+          status: status,
+          accountId: element.accountId
         }
         this.ELE.push(datas)
       });

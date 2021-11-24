@@ -11,7 +11,7 @@ export class ImportComponent implements OnInit {
   studentTemp: any;
   studentInfo: any = [];
   result: any;
-  data: any = [['學號', '姓名', '班級', '性別']]
+  data: any = [['編號', '年度', '姓名', '學校', '年班', '性別', '身份', '都市化程度']]
   filetype: any
   constructor(private HttpsService: HttpsService) { }
   arrayBuffer: any
@@ -68,7 +68,7 @@ export class ImportComponent implements OnInit {
     const ws: xlsx.WorkSheet = xlsx.utils.aoa_to_sheet(this.data);
     const wb: xlsx.WorkBook = xlsx.utils.book_new();
     xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
-    xlsx.writeFile(wb, '範例檔案.csv');
+    xlsx.writeFile(wb, '範例檔案.xlsx');
   }
   sendScore() {
     if (this.filetype == 'xlsx') {
