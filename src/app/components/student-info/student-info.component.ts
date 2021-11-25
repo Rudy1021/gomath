@@ -50,26 +50,28 @@ export class StudentInfoComponent implements OnInit {
       showCancelButton: true,
       cancelButtonText: '取消'
     }).then(res => {
-      var update = [{
-        "op": "replace",
-        "path": "/Status",
-        "value": 0
-      },
-      {
-        "op": "replace",
-        "path": "/Token",
-        "value": ""
-      }]
-      this.HttpsService.logouts(Id, update).subscribe(res => {
-        Swal.fire({
-          title: '成功',
-          icon: 'success',
-          text: '解鎖成功！',
-          confirmButtonText: '好的'
-        }).then((res) => {
-          location.reload
+      if (res.isConfirmed) {
+        var update = [{
+          "op": "replace",
+          "path": "/Status",
+          "value": 0
+        },
+        {
+          "op": "replace",
+          "path": "/Token",
+          "value": ""
+        }]
+        this.HttpsService.logouts(Id, update).subscribe(res => {
+          Swal.fire({
+            title: '成功',
+            icon: 'success',
+            text: '解鎖成功！',
+            confirmButtonText: '好的'
+          }).then((res) => {
+            location.reload
+          })
         })
-      })
+      }
     })
   }
 }

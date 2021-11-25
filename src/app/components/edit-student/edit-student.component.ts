@@ -90,16 +90,18 @@ export class EditStudentComponent implements OnInit {
       showCancelButton: true,
       cancelButtonText: "取消"
     }).then((res) => {
-      this.HttpsService.deleteStudent(this.route.snapshot.paramMap.get('accountId')!).subscribe(res => {
-        Swal.fire({
-          title: '成功！',
-          icon: 'success',
-          text: '刪除成功！',
-          confirmButtonText: '好的',
-        }).then((res) => {
-          location.href = '/StudentInfo'
+      if (res.isConfirmed) {
+        this.HttpsService.deleteStudent(this.route.snapshot.paramMap.get('accountId')!).subscribe(res => {
+          Swal.fire({
+            title: '成功！',
+            icon: 'success',
+            text: '刪除成功！',
+            confirmButtonText: '好的',
+          }).then((res) => {
+            location.href = '/StudentInfo'
+          })
         })
-      })
+      }
     })
   }
 }
