@@ -1,5 +1,5 @@
 import { HttpsService } from './../../services/https.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 @Component({
   templateUrl: './files.component.html',
   styleUrls: ['./files.component.scss']
@@ -31,10 +31,11 @@ export class FilesComponent implements OnInit {
   constructor(
     private HttpsService: HttpsService
   ) { }
-
   ngOnInit(): void {
     this.getScores();
+    console.log("a")
     this.getTopicName();
+    this.one = '無'
   }
   getScores(): void {
     this.HttpsService.getScores().subscribe(StudentsData => {
@@ -122,6 +123,7 @@ export class FilesComponent implements OnInit {
     if (this.one == '無') {
       location.href = '/analyze/none'
     } else if (this.one == '作答時間') {
+      this.one = '無'
       if (this.two == '無') {
         location.href = '/analyze/a' + this.oneAns
       } else if (this.two == '性別') {
@@ -134,6 +136,7 @@ export class FilesComponent implements OnInit {
         location.href = '/analyze/a' + this.oneAns + 'ands' + s
       }
     } else if (this.one == '性別') {
+      this.one = '無'
       if (this.two == '無') {
         location.href = '/analyze/g' + g
       } else if (this.two == '作答時間') {
@@ -146,6 +149,7 @@ export class FilesComponent implements OnInit {
         location.href = '/analyze/s' + s + 'andg' + g
       }
     } else if (this.one == '作答結果') {
+      this.one = '無'
       if (this.two == '無') {
         location.href = '/analyze/c' + c
       } else if (this.two == '性別') {
@@ -158,6 +162,7 @@ export class FilesComponent implements OnInit {
         location.href = '/analyze/s' + s + 'andc' + c
       }
     } else if (this.one == '學生學號') {
+      this.one = '無'
       if (this.two == '無') {
         location.href = '/analyze/I' + this.oneAns
       } else if (this.two == '性別') {
@@ -170,6 +175,7 @@ export class FilesComponent implements OnInit {
         location.href = '/analyze/I' + this.twoAns + 'ands' + s
       }
     } else if (this.one == '作答大題') {
+      this.one = '無'
       if (this.two == '無') {
         location.href = '/analyze/s' + s
       } else if (this.two == '性別') {

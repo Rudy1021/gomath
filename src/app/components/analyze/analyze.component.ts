@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import * as  xlsx from 'xlsx'
 import { HttpsService } from './../../services/https.service';
 import { ActivatedRoute } from '@angular/router';
@@ -26,7 +26,6 @@ export class AnalyzeComponent implements OnInit {
     private HttpsService: HttpsService,
     private route: ActivatedRoute
   ) { }
-
   ngOnInit(): void {
     this.getScores();
   }
