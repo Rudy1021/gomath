@@ -112,12 +112,12 @@ export class AnalyzeComponent implements OnInit {
           }
           var studentInfo = {
             name: element.name, studentId: element.studentId, topic: element.topic, answerSpeedSecond: element.answerSpeedSecond,
-            school: '未給', gender: g, answer: element.topicAnswer, studentanswer: element.answer,
+            school: element.school, gender: g, answer: element.topicAnswer, studentanswer: element.answer,
             correct: correct
           }
           this.ELEMENT_DATA.push(studentInfo)
           this.dataSource = this.ELEMENT_DATA;
-          var exportInfo = [element.name, element.studentId, '未給', g, element.topic, element.topicAnswer, element.answer,
+          var exportInfo = [element.name, element.studentId, element.school, g, element.topic, element.topicAnswer, element.answer,
             correct, element.answerSpeedSecond]
           this.data.push(exportInfo)
         });
