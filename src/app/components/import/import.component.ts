@@ -209,6 +209,13 @@ export class ImportComponent implements OnInit {
       }).then(res => {
         location.href = '/StudentInfo'
       })
+    } else {
+      Swal.fire({
+        title: '錯誤',
+        icon: 'error',
+        text: '檔案格式錯誤，請檢查。',
+        confirmButtonText: '好的'
+      })
     }
   }
 }
