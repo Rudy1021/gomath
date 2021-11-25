@@ -22,7 +22,9 @@ export class SearchPageComponent implements OnInit {
   feedbackId: any = [];
   answer: any = []
   correctAns: any = []
-  displayedColumns: any = ['題目', '正解', '學生作答（辨識結果）', '修正作答區', '手寫圖片']
+  userAns: any = []
+  changeDisabled: any = []
+  displayedColumns: any = ['題目', 'right', 'student', 'fix', 'image']
   constructor(private route: ActivatedRoute,
     private HttpsService: HttpsService) { }
 
@@ -55,8 +57,10 @@ export class SearchPageComponent implements OnInit {
         }
         if (element.topicAnswer == element.answer) {
           judge.push('對')
+          this.changeDisabled.push(true)
         } else {
           judge.push('錯')
+          this.changeDisabled.push(false)
         }
         var datas = {
           wrong: element.topic,
@@ -64,6 +68,7 @@ export class SearchPageComponent implements OnInit {
           write: element.answer,
           picture: element.image
         }
+        this.userAns.push(element.answer)
         this.ELE.push(datas)
       });
       this.dataSource = this.ELE
@@ -80,6 +85,8 @@ export class SearchPageComponent implements OnInit {
         "op": "replace",
         "value": this.correctAns[i]
       }]
+      this.answer[i] = this.correctAns[i]
+      this.userAns[i] = this.correctAns[i]
       this.HttpsService.updateFeedback(sub, this.feedbackId[i]).subscribe((res: any) => {
       })
     }
