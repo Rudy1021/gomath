@@ -68,7 +68,7 @@ export class StudentInfoComponent implements OnInit {
             text: '解鎖成功！',
             confirmButtonText: '好的'
           }).then((res) => {
-            location.reload
+            location.reload()
           })
         })
       }

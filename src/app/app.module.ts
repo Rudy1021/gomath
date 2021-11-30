@@ -18,6 +18,9 @@ import { TopicComponent } from './components/topic/topic.component';
 import { NewGroupComponent } from './components/new-group/new-group.component';
 import { AnsPageComponent } from './components/ans-page/ans-page.component';
 import { SearchPageComponent } from './components/search-page/search-page.component';
+import { CookieService } from 'ngx-cookie-service';
+import { SchoolListComponent } from './components/school-list/school-list.component';
+import { SchoolModifyComponent } from './components/school-modify/school-modify.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +35,8 @@ import { SearchPageComponent } from './components/search-page/search-page.compon
     NewGroupComponent,
     AnsPageComponent,
     SearchPageComponent,
+    SchoolListComponent,
+    SchoolModifyComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,7 @@ import { SearchPageComponent } from './components/search-page/search-page.compon
     SweetAlert2Module.forRoot(),
     MatIconModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

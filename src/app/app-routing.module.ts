@@ -1,3 +1,5 @@
+import { SchoolModifyComponent } from './components/school-modify/school-modify.component';
+import { SchoolListComponent } from './components/school-list/school-list.component';
 import { NewGroupComponent } from './components/new-group/new-group.component';
 import { TopicComponent } from './components/topic/topic.component';
 import { EditStudentComponent } from './components/edit-student/edit-student.component';
@@ -24,6 +26,8 @@ const routes: Routes = [
   { path: 'newGroup', component: NewGroupComponent },
   { path: 'ansPage', component: AnsPageComponent },
   { path: 'searchPage/:id', component: SearchPageComponent },
+  { path: 'schoolList', component: SchoolListComponent },
+  { path: 'schoolModify/:option', component: SchoolModifyComponent },
 ];
 
 @NgModule({

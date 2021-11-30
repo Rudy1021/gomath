@@ -1,0 +1,18 @@
+<div class="pt-5">
+  <div class="mt-5 m-auto loginList text-center border-radius-2">
+    <h4 class="mb-5">{{ title }}</h4>
+    <input [placeholder]="placeholder" type="text" class="loginInput" [(ngModel)]="name">
+    <div class="row mt-5">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <button (click)="submit()" class="btn btn-primary">{{ option }}</button>
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col-3"></div>
+      <div class="col-6">
+        <button  [routerLink]="['/schoolList']" class="btn btn-primary">重新選擇資料</button>
+      </div>
+    </div>
+  </div>
+</div>

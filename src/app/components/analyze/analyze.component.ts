@@ -60,7 +60,7 @@ export class AnalyzeComponent implements OnInit {
           a1 = 'Gender=' + args[0].split('g')[1]
           break
         case 'I':
-          a1 = 'studentId=' + args[0].split('I')[1]
+          a1 = 'student_id=' + args[0].split('I')[1]
           break
         case 's':
           a1 = 'TopicId=' + args[0].split('s')[1]
@@ -78,7 +78,7 @@ export class AnalyzeComponent implements OnInit {
             a2 = 'Gender=' + args[1].split('g')[1]
             break
           case 'I':
-            a2 = 'studentId=' + args[1].split('I')[1]
+            a2 = 'student_id=' + args[1].split('I')[1]
             break
           case 's':
             a2 = 'TopicId=' + args[1].split('s')[1]
@@ -145,12 +145,12 @@ export class AnalyzeComponent implements OnInit {
           }
           var studentInfo = {
             name: element.name, studentId: element.studentId, topic: element.topic, answerSpeedSecond: element.answerSpeedSecond,
-            school: '未給', gender: g, answer: element.topicAnswer, studentanswer: element.answer,
+            school: element.school, gender: g, answer: element.topicAnswer, studentanswer: element.answer,
             correct: correct
           }
           this.ELEMENT_DATA.push(studentInfo)
           this.dataSource = this.ELEMENT_DATA;
-          var exportInfo = [element.name, element.studentId, '未給', g, element.topic, element.topicAnswer, element.answer,
+          var exportInfo = [element.name, element.studentId, element.school, g, element.topic, element.topicAnswer, element.answer,
             correct, element.answerSpeedSecond]
           this.data.push(exportInfo)
         });
