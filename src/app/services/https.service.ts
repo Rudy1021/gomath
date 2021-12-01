@@ -23,11 +23,23 @@ export class HttpsService {
   getSchools(): Observable<any> {
     return this.http.get(this.BaseUrl + '/Account/GetSchoolList');
   }
+  delStudentScore(id: any) {
+    const url = `${this.BaseUrl}/Account/DeleteStudentFeedback/${id}`;
+    return this.http.delete(url);
+  }
   uploadSchool(Request: any) {
     const url = `${this.BaseUrl}/Account/AddSchool`;
     return this.http.post(url, Request, {
       observe: 'response'
     });
+  }
+  unlockAllStudent(id: any) {
+    const url = `${this.BaseUrl}/Account/UnlockAllStudent/${id}`;
+    return this.http.get(url)
+  }
+  ReRecognize() {
+    const url = `${this.BaseUrl}/Feedback/ReRecognize`;
+    return this.http.get(url)
   }
   PatchSchool(id: any, Request: any) {
     const url = `${this.BaseUrl}/Account/PatchSchool/${id}`;

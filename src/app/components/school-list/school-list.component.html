@@ -36,5 +36,11 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+    <div class="row mt-5">
+      <div class="col-3"></div>
+      <div class="col-6">
+        <button  [routerLink]="['/main']" class="btn btn-primary">重新選擇資料</button>
+      </div>
+    </div>
   </div>
 </div>

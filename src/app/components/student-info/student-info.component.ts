@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpsService } from './../../services/https.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-student-info',
   templateUrl: './student-info.component.html',
@@ -9,8 +10,9 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 export class StudentInfoComponent implements OnInit {
   StudentsData: any;
   dataSource: any = [];
-  constructor(private HttpsService: HttpsService) { }
-  displayedColumns: any = ['姓名', '學號', '學校名稱', '年級', '班級', '登入狀態', '選項']
+  constructor(private HttpsService: HttpsService,
+    private cookieService: CookieService) { }
+  displayedColumns: any = ['name', 'studentId', 'school', 'grade', 'class', 'status', 'option']
   ELE: any = []
   ngOnInit(): void {
     this.getStudents()
@@ -68,6 +70,29 @@ export class StudentInfoComponent implements OnInit {
             text: '解鎖成功！',
             confirmButtonText: '好的'
           }).then((res) => {
+            location.reload()
+          })
+        })
+      }
+    })
+  }
+  unlockAllStudent() {
+    Swal.fire({
+      title: '警告！',
+      icon: 'warning',
+      text: '確定要解鎖嗎？',
+      confirmButtonText: '確定',
+      showCancelButton: true,
+      cancelButtonText: "取消"
+    }).then(res => {
+      if (res.isConfirmed) {
+        this.HttpsService.unlockAllStudent(this.cookieService.get("School")).subscribe(res => {
+          Swal.fire({
+            title: '成功！',
+            icon: 'success',
+            text: '解鎖成功！',
+            confirmButtonText: '確定'
+          }).then(res => {
             location.reload()
           })
         })

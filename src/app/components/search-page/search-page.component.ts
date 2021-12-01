@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpsService } from './../../services/https.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { CookieService } from 'ngx-cookie-service';
 export interface a {
   wrong: string;
   correct: any;
@@ -26,7 +27,8 @@ export class SearchPageComponent implements OnInit {
   changeDisabled: any = []
   displayedColumns: any = ['題目', 'right', 'student', 'fix', 'image']
   constructor(private route: ActivatedRoute,
-    private HttpsService: HttpsService) { }
+    private HttpsService: HttpsService,
+    private cookieService: CookieService) { }
 
   ngOnInit(): void {
     this.getStudent()
@@ -66,8 +68,10 @@ export class SearchPageComponent implements OnInit {
           wrong: element.topic,
           correct: element.topicAnswer,
           write: element.answer,
-          picture: element.image
+          picture: element.image,
+          feedbackId: element.feedbackId
         }
+        console.log(this.feedbackId)
         this.userAns.push(element.answer)
         this.ELE.push(datas)
       });
@@ -90,5 +94,50 @@ export class SearchPageComponent implements OnInit {
       this.HttpsService.updateFeedback(sub, this.feedbackId[i]).subscribe((res: any) => {
       })
     }
+  }
+  delStudentScore() {
+    var accountId = ''
+    Swal.fire({
+      title: '警告！',
+      icon: 'warning',
+      text: '確定要刪除嗎？',
+      confirmButtonText: '確定',
+      showCancelButton: true,
+      cancelButtonText: "取消"
+    }).then(res => {
+      if (res.isConfirmed) {
+        this.HttpsService.getStudents().subscribe(res => {
+          res.forEach((element: any) => {
+            if (element.studentId == this.route.snapshot.paramMap.get('id')!) {
+              accountId = element.accountId
+            }
+          });
+          this.HttpsService.delStudentScore(accountId).subscribe(res => {
+            Swal.fire({
+              title: '成功！',
+              icon: 'success',
+              text: '刪除成功！',
+              confirmButtonText: '確定'
+            }).then(res => {
+              location.href = '/ansPage'
+            })
+          })
+        })
+      }
+    })
+  }
+  ReRecognize() {
+    this.HttpsService.ReRecognize().subscribe(res => {
+      if (res == true) {
+        Swal.fire({
+          title: '成功！',
+          icon: 'success',
+          text: '辨識成功！',
+          confirmButtonText: '確定'
+        }).then(res => {
+          location.reload()
+        })
+      }
+    })
   }
 }
