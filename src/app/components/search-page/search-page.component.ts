@@ -25,6 +25,7 @@ export class SearchPageComponent implements OnInit {
   correctAns: any = []
   userAns: any = []
   changeDisabled: any = []
+  recognize = false
   displayedColumns: any = ['題目', 'right', 'student', 'fix', 'image']
   constructor(private route: ActivatedRoute,
     private HttpsService: HttpsService,
@@ -56,6 +57,8 @@ export class SearchPageComponent implements OnInit {
         this.correctAns.push(element.topicAnswer)
         if (element.answer == '' || element.answer == null) {
           element.answer = '無作答'
+        } else if (element.answer == 'AI主機連線失敗') {
+          this.recognize = true
         }
         if (element.topicAnswer == element.answer) {
           judge.push('對')

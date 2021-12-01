@@ -2,7 +2,10 @@
   <div class="mt-5 m-auto loginList text-center border-radius-2 printPage">
     <h4 class="noPrint">查詢結果</h4>
     <div class="row mb-3">
-      <div class="col-9"></div>
+      <div class="col-6"></div>
+      <div class="col-3">
+        <button (click)="ReRecognize()" *ngIf="recognize == true" class="btn btn-warning">重新與AI主機連線</button>
+      </div>
       <div class="col-3">
         <button class="btn btn-danger" (click)="delStudentScore()">清除此學生所有作答</button>
       </div>
@@ -34,7 +37,6 @@
               <option>對</option>
               <option>錯</option>
           </select>
-          <button (click)="ReRecognize()" *ngIf="userAns[i] == 'AI主機連線失敗'" class="btn btn-warning">重新與AI主機連線</button>
         </td>
         </ng-container>
 
