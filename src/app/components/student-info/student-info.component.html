@@ -50,10 +50,13 @@
         <th mat-header-cell *matHeaderCellDef> 選項 </th>
         <td mat-cell *matCellDef="let element">
           <div class="row">
-            <div class="col-6">
+            <div class="col-4">
               <button class="btn btn-warning" [routerLink]="['/editStudent/' + element.accountId]">編輯</button>
             </div>
-            <div class="col-6">
+            <div class="col-4">
+              <button class="btn btn-danger" *ngIf="studentId.indexOf(element.studentId) > -1 && element.status=='已登入'" (click)="delScore(element.accountId)">清除作答</button>
+            </div>
+            <div class="col-4">
               <button class="btn btn-danger" *ngIf="element.status == '已登入'" (click)="logout(element.accountId)">解鎖帳號</button>
             </div>
           </div>

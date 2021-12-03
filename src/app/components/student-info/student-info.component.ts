@@ -14,12 +14,12 @@ export class StudentInfoComponent implements OnInit {
     private cookieService: CookieService) { }
   displayedColumns: any = ['name', 'studentId', 'school', 'grade', 'class', 'status', 'option']
   ELE: any = []
+  studentId: any = []
   ngOnInit(): void {
     this.getStudents()
   }
   getStudents(): void {
     this.HttpsService.getStudents().subscribe(StudentsData => {
-      console.log(StudentsData)
       StudentsData.forEach((element: any) => {
         var status = ''
         if (element.status == 0) {
@@ -41,6 +41,13 @@ export class StudentInfoComponent implements OnInit {
         this.ELE.push(datas)
       });
       this.dataSource = this.ELE
+      this.HttpsService.getScores().subscribe(res => {
+        res.forEach((element: any) => {
+          if (this.studentId.find((elements: any) => element.studentId == elements) == undefined) {
+            this.studentId.push(element.studentId)
+          }
+        });
+      })
     })
   }
   logout(Id: any) {
@@ -93,6 +100,29 @@ export class StudentInfoComponent implements OnInit {
             text: '解鎖成功！',
             confirmButtonText: '確定'
           }).then(res => {
+            location.reload()
+          })
+        })
+      }
+    })
+  }
+  delScore(studentId: any) {
+    Swal.fire({
+      title: '警告',
+      icon: 'warning',
+      text: '確定要清除作答嗎？',
+      confirmButtonText: '好的',
+      cancelButtonText: '取消',
+      showCancelButton: true
+    }).then((res) => {
+      if (res.isConfirmed) {
+        this.HttpsService.delStudentScore(studentId).subscribe(res => {
+          Swal.fire({
+            title: '成功',
+            icon: 'success',
+            text: '清除成功！',
+            confirmButtonText: '好的'
+          }).then((res) => {
             location.reload()
           })
         })
