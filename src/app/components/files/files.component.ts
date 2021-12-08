@@ -104,7 +104,6 @@ export class FilesComponent implements OnInit {
         }
       });
     }
-    console.log(s)
     var g = true
     if (this.gend1 == '男' && this.oneAns == '') {
       g = true
@@ -184,7 +183,7 @@ export class FilesComponent implements OnInit {
       } else if (this.two == '學生學號') {
         location.href = '/analyze/s' + s + 'andI' + this.twoAns
       } else if (this.two == '作答時間') {
-        location.href = '/analyze/s' + this.oneAns + 'anda' + this.twoAns
+        location.href = '/analyze/s' + s + 'anda' + this.twoAns
       }
     }
   }
