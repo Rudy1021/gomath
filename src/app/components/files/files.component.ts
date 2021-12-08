@@ -33,7 +33,6 @@ export class FilesComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     this.getScores();
-    console.log("a")
     this.getTopicName();
     this.one = '無'
   }

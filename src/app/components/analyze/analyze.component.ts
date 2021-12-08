@@ -63,7 +63,7 @@ export class AnalyzeComponent implements OnInit {
           a1 = 'student_id=' + args[0].split('I')[1]
           break
         case 's':
-          a1 = 'TopicId=' + args[0].split('s')[1]
+          a1 = 'questionTypeId=' + args[0].split('s')[1]
           break
         case 'c':
           a1 = 'correct=' + args[0].split('c')[1]
@@ -81,7 +81,7 @@ export class AnalyzeComponent implements OnInit {
             a2 = 'student_id=' + args[1].split('I')[1]
             break
           case 's':
-            a2 = 'TopicId=' + args[1].split('s')[1]
+            a2 = 'questionTypeId=' + args[1].split('s')[1]
             break
           case 'c':
             a2 = 'correct=' + args[1].split('c')[1]
@@ -98,7 +98,6 @@ export class AnalyzeComponent implements OnInit {
         rou = a1
       }
       this.HttpsService.getSearch(rou).subscribe(StudentsData => {
-        console.log(StudentsData)
         this.StudentsData = StudentsData
         StudentsData.forEach((element: any) => {
           var g = '男'
