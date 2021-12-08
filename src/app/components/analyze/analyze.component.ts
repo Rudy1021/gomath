@@ -54,7 +54,7 @@ export class AnalyzeComponent implements OnInit {
       var args = arg.split('and')
       switch (args[0].slice(0, 1)) {
         case 'a':
-          a1 = 'startTime=' + args[0].split('a')[1] + '&EndTime=' + args[0].split('a')[1]
+          a1 = 'startTime=' + args[0].split('a')[1].split('p')[0] + '&EndTime=' + args[0].split('a')[1].split('p')[1]
           break
         case 'g':
           a1 = 'Gender=' + args[0].split('g')[1]
@@ -72,7 +72,7 @@ export class AnalyzeComponent implements OnInit {
       if (args.length > 1) {
         switch (args[1].slice(0, 1)) {
           case 'a':
-            a2 = 'startTime=' + args[1].split('a')[1] + '&EndTime=' + args[1].split('a')[1]
+            a2 = 'startTime=' + args[1].split('a')[1].split('p')[0] + '&EndTime=' + args[1].split('a')[1].split('p')[1]
             break
           case 'g':
             a2 = 'Gender=' + args[1].split('g')[1]

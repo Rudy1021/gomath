@@ -14,6 +14,10 @@ export class FilesComponent implements OnInit {
   filters4: any = ['對', '錯']
   tip1 = '請選擇選項'
   tip2 = ''
+  start = ''
+  end = ''
+  start2 = ''
+  end2 = ''
   no: boolean = true;
   one = '無'
   two = ''
@@ -123,22 +127,22 @@ export class FilesComponent implements OnInit {
     } else if (this.one == '作答時間') {
       this.one = '無'
       if (this.two == '無') {
-        location.href = '/analyze/a' + this.oneAns
+        location.href = '/analyze/a' + this.start + 'p' + this.end
       } else if (this.two == '性別') {
-        location.href = '/analyze/a' + this.oneAns + 'andg' + g
+        location.href = '/analyze/a' + this.start + 'p' + this.end + 'andg' + g
       } else if (this.two == '作答結果') {
-        location.href = '/analyze/a' + this.oneAns + 'andc' + c
+        location.href = '/analyze/a' + this.start + 'p' + this.end + 'andc' + c
       } else if (this.two == '學生學號') {
-        location.href = '/analyze/a' + this.oneAns + 'andI' + this.twoAns
+        location.href = '/analyze/a' + this.start + 'p' + this.end + 'andI' + this.twoAns
       } else if (this.two == '作答大題') {
-        location.href = '/analyze/a' + this.oneAns + 'ands' + s
+        location.href = '/analyze/a' + this.start + 'p' + this.end + 'ands' + s
       }
     } else if (this.one == '性別') {
       this.one = '無'
       if (this.two == '無') {
         location.href = '/analyze/g' + g
       } else if (this.two == '作答時間') {
-        location.href = '/analyze/a' + this.twoAns + 'andg' + g
+        location.href = '/analyze/a' + this.start2 + 'p' + this.end2 + 'andg' + g
       } else if (this.two == '作答結果') {
         location.href = '/analyze/g' + g + 'andc' + c
       } else if (this.two == '學生學號') {
@@ -153,7 +157,7 @@ export class FilesComponent implements OnInit {
       } else if (this.two == '性別') {
         location.href = '/analyze/g' + g + 'andc' + c
       } else if (this.two == '作答時間') {
-        location.href = '/analyze/a' + this.twoAns + 'andc' + c
+        location.href = '/analyze/a' + this.start2 + 'p' + this.end2 + 'andc' + c
       } else if (this.two == '學生學號') {
         location.href = '/analyze/c' + c + 'andI' + this.twoAns
       } else if (this.two == '作答大題') {
@@ -168,7 +172,7 @@ export class FilesComponent implements OnInit {
       } else if (this.two == '作答結果') {
         location.href = '/analyze/I' + this.oneAns + 'andc' + c
       } else if (this.two == '作答時間') {
-        location.href = '/analyze/a' + this.twoAns + 'andI' + this.oneAns
+        location.href = '/analyze/a' + this.start2 + 'p' + this.end2 + 'andI' + this.oneAns
       } else if (this.two == '作答大題') {
         location.href = '/analyze/I' + this.twoAns + 'ands' + s
       }
@@ -183,7 +187,7 @@ export class FilesComponent implements OnInit {
       } else if (this.two == '學生學號') {
         location.href = '/analyze/s' + s + 'andI' + this.twoAns
       } else if (this.two == '作答時間') {
-        location.href = '/analyze/s' + s + 'anda' + this.twoAns
+        location.href = '/analyze/s' + s + 'anda' + this.start2 + 'p' + this.end2
       }
     }
   }
