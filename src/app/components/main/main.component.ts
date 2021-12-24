@@ -15,6 +15,9 @@ export class MainComponent implements OnInit {
   schoolList: any = []
   schoolName: any = '請選擇學校'
   school: any = false
+  topicName: any = []
+  tempname:any = []
+  tempdatas:any = []
   ngOnInit(): void {
     this.getSchool()
   }
@@ -37,6 +40,34 @@ export class MainComponent implements OnInit {
   }
   output() {
     this.HttpsService.getScores().subscribe(StudentsData => {
+
+      var n = StudentsData.length
+      for (let i = 0; i < n - 1; i++) {
+        // 3
+        for (let j = 0; j < n - 1 - i; j++) {
+          // 4
+          if (StudentsData[j].name > StudentsData[j + 1].name) {
+            // 5
+            const temp = StudentsData[j];
+            StudentsData[j] = StudentsData[j + 1];
+            StudentsData[j + 1] = temp;
+          }
+        }
+      }
+      for (let i = 0; i < n - 1; i++) {
+        // 3
+        for (let j = 0; j < n - 1 - i; j++) {
+          // 4
+          if (StudentsData[j].name == StudentsData[j + 1].name && StudentsData[j].topic.split("(")[0] == StudentsData[j + 1].topic.split("(")[0] && parseInt(StudentsData[j].topic.split("(")[1].split(")")[0]) > parseInt(StudentsData[j + 1].topic.split("(")[1].split(")")[0])) {
+            // 5
+            const temp = StudentsData[j];
+            StudentsData[j] = StudentsData[j + 1];
+            StudentsData[j + 1] = temp;
+          }
+        }
+      }
+      console.log(StudentsData)
+      const wb: xlsx.WorkBook = xlsx.utils.book_new();
       StudentsData.forEach((element: any) => {
         var g = '男'
         if (element.gender == false) {
@@ -46,16 +77,45 @@ export class MainComponent implements OnInit {
         if (element.topicAnswer != element.answer) {
           correct = '錯'
         }
+        if(this.topicName.find((elements:any) => elements == element.topic.split("(")[0]) == undefined) {
+          this.topicName.push(element.topic.split("(")[0])
+        }
         var tempdata = [element.name, element.studentId, element.school, g, element.topic, element.topicAnswer, element.answer,
           correct, element.answerSpeedSecond]
         this.data.push(tempdata)
       });
+
+
+      StudentsData.forEach((element: any) => {
+        if(this.tempname.find((elements:any) => elements == element.name) == undefined) {
+          this.tempname.push(element.name)
+        }
+      });
+
+      for(var i = 0;i < this.tempname.length;i ++) {
+        this.tempdatas.push([this.tempname[i]])
+      }
+      StudentsData.forEach((element: any) => {
+        var g = '男'
+        if (element.gender == false) {
+          g = '女'
+        }
+        for(var i = 0;i < this.tempdatas.length;i ++) {
+          if(this.tempdatas[i].find((elements:any) => elements == element.school) == undefined && this.tempdatas[i].find((elements:any) => elements == element.name) == element.name){
+            this.tempdatas[i].push(element.studentId, element.school, g)
+          }
+        }
+      });
+      console.log(this.tempdatas)
       const ws: xlsx.WorkSheet = xlsx.utils.aoa_to_sheet(this.data);
       /* generate workbook and add the worksheet */
-      const wb: xlsx.WorkBook = xlsx.utils.book_new();
-      xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
+      xlsx.utils.book_append_sheet(wb, ws, '學生成績');
+      xlsx.utils.book_append_sheet(wb, ws, '總表');
+      for(var i = 0;i<this.topicName.length;i ++) {
+        xlsx.utils.book_append_sheet(wb, ws, this.topicName[i]);
+      }
       /* save to file */
-      xlsx.writeFile(wb, '總學生成績.csv');
+      //xlsx.writeFile(wb, '總學生成績.xlsx');
       Swal.fire({
         title: '成功',
         icon: 'success',
