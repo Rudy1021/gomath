@@ -127,13 +127,12 @@ export class MainComponent implements OnInit {
         }
       }
     }
-    console.log(this.StudentsData)
     this.data = []
     var topic: any = []
     this.data.push(['姓名', '學號', '學校', '性別'])
     var indexOftopic = 0
+    console.log(this.StudentsData)
     for (var w = 0; w < this.StudentsData.length; w++) {
-
       var g = '男'
       if (this.StudentsData[w].gender == false) {
         g = '女'
@@ -149,20 +148,30 @@ export class MainComponent implements OnInit {
       if (this.StudentsData[w].topicAnswer != this.StudentsData[w].answer) {
         correct = '錯'
       }
+      if (this.StudentsData[w].topic.split("(")[1].split(")")[0] == '20' && this.StudentsData[w].name == '蕭伯翰') {
+        console.log('a')
+      }
+      if (w == 91) {
+        console.log("b")
+      }
       if (topic[topic.length - 1] == topic[topic.length - 2] || topic.length == 1) {
-        if (this.data[0].indexOf("第" + this.StudentsData[w].topic.split("(")[1].split(")")[0] + "題結果對錯") == -1) {
-          this.data[0].push("第" + this.StudentsData[w].topic.split("(")[1].split(")")[0] + "題結果對錯", "第" + this.StudentsData[w].topic.split("(")[1].split(")")[0] + "題答題時間")
-        }
-        if (indexOftopic == this.StudentsData[w].topic.split("(")[1].split(")")[0]) {
-          if (this.tempname.indexOf(this.StudentsData[w].name) != -1 && this.tempname.indexOf(this.StudentsData[w].name) < this.data.length - 1) {
-            this.data[this.tempname.indexOf(this.StudentsData[w].name) + 1].push(correct, this.StudentsData[w].answerSpeedSecond)
-          } else {
-            this.data.push([this.StudentsData[w].name, this.StudentsData[w].studentId, this.StudentsData[w].school, g, correct, this.StudentsData[w].answerSpeedSecond])
+        if (!this.StudentsData[w].topic.split("(")[1].split(")")[0].match(/練習[0-9]*/)) {
+          if (this.StudentsData[w].topic.split("(")[1].split(")")[0] != '說明') {
+            if (this.data[0].indexOf("第" + this.StudentsData[w].topic.split("(")[1].split(")")[0] + "題結果對錯") == -1) {
+              this.data[0].push("第" + this.StudentsData[w].topic.split("(")[1].split(")")[0] + "題結果對錯", "第" + this.StudentsData[w].topic.split("(")[1].split(")")[0] + "題答題時間")
+            }
+            if (indexOftopic == this.StudentsData[w].topic.split("(")[1].split(")")[0]) {
+              if (this.tempname.indexOf(this.StudentsData[w].name) != -1 && this.tempname.indexOf(this.StudentsData[w].name) < this.data.length - 1) {
+                console.log(this.tempname.indexOf(this.StudentsData[w].name) + 1)
+                this.data[this.tempname.indexOf(this.StudentsData[w].name) + 1].push(correct, this.StudentsData[w].answerSpeedSecond)
+              } else {
+                this.data.push([this.StudentsData[w].name, this.StudentsData[w].studentId, this.StudentsData[w].school, g, correct, this.StudentsData[w].answerSpeedSecond])
+              }
+            } else {
+              this.data[this.tempname.indexOf(this.StudentsData[w].name) + 1].push('未作答', '未作答')
+            }
           }
-        } else {
-          this.data[this.tempname.indexOf(this.StudentsData[w].name) + 1].push('未作答', '未作答')
         }
-
       } else {
         indexOftopic = 1
         const ws1: xlsx.WorkSheet = xlsx.utils.aoa_to_sheet(this.data);
@@ -174,6 +183,7 @@ export class MainComponent implements OnInit {
           this.data[i] = []
           this.data[i].push(temparray[0], temparray[1], temparray[2], temparray[3])
         }
+        this.data[0] = ['姓名', '學號', '學校', '性別']
         this.data[this.tempname.indexOf(this.StudentsData[w].name) + 1].push(correct, this.StudentsData[w].answerSpeedSecond)
       }
     }
