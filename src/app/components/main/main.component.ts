@@ -127,20 +127,22 @@ export class MainComponent implements OnInit {
         }
       }
     }
+    console.log(this.StudentsData)
     this.data = []
     var topic: any = []
     this.data.push(['姓名', '學號', '學校', '性別'])
     var indexOftopic = 0
     for (var w = 0; w < this.StudentsData.length; w++) {
-      if (w % 4 == 0) {
-        indexOftopic++
-      }
+
       var g = '男'
       if (this.StudentsData[w].gender == false) {
         g = '女'
       }
       if (this.tempname.indexOf(this.StudentsData[w].name) == -1) {
         this.tempname.push(this.StudentsData[w].name)
+      }
+      if (w % this.tempname.length == 0) {
+        indexOftopic++
       }
       topic.push(this.StudentsData[w].topic.split("(")[0])
       var correct = '對'
