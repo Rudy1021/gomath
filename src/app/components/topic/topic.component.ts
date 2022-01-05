@@ -11,8 +11,8 @@ export class TopicComponent implements OnInit {
   groupTopic: any
   groupName = ''
   Time = ''
-  t = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
-  a = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
+  t = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+  a = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, , false]
   constructor(private HttpsService: HttpsService) { }
 
   ngOnInit(): void {
