@@ -131,7 +131,6 @@ export class MainComponent implements OnInit {
     var topic: any = []
     this.data.push(['姓名', '學號', '學校', '性別'])
     var indexOftopic = 0
-    console.log(this.StudentsData)
     for (var w = 0; w < this.StudentsData.length; w++) {
       var g = '男'
       if (this.StudentsData[w].gender == false) {
@@ -148,12 +147,6 @@ export class MainComponent implements OnInit {
       if (this.StudentsData[w].topicAnswer != this.StudentsData[w].answer) {
         correct = '錯'
       }
-      if (this.StudentsData[w].topic.split("(")[1].split(")")[0] == '20' && this.StudentsData[w].name == '蕭伯翰') {
-        console.log('a')
-      }
-      if (w == 91) {
-        console.log("b")
-      }
       if (topic[topic.length - 1] == topic[topic.length - 2] || topic.length == 1) {
         if (!this.StudentsData[w].topic.split("(")[1].split(")")[0].match(/練習[0-9]*/)) {
           if (this.StudentsData[w].topic.split("(")[1].split(")")[0] != '說明') {
@@ -162,7 +155,6 @@ export class MainComponent implements OnInit {
             }
             if (indexOftopic == this.StudentsData[w].topic.split("(")[1].split(")")[0]) {
               if (this.tempname.indexOf(this.StudentsData[w].name) != -1 && this.tempname.indexOf(this.StudentsData[w].name) < this.data.length - 1) {
-                console.log(this.tempname.indexOf(this.StudentsData[w].name) + 1)
                 this.data[this.tempname.indexOf(this.StudentsData[w].name) + 1].push(correct, this.StudentsData[w].answerSpeedSecond)
               } else {
                 this.data.push([this.StudentsData[w].name, this.StudentsData[w].studentId, this.StudentsData[w].school, g, correct, this.StudentsData[w].answerSpeedSecond])
@@ -175,7 +167,6 @@ export class MainComponent implements OnInit {
       } else {
         indexOftopic = 1
         const ws1: xlsx.WorkSheet = xlsx.utils.aoa_to_sheet(this.data);
-        console.log(this.data)
         xlsx.utils.book_append_sheet(wb, ws1, topic[topic.length - 2]);
         topic = []
         for (var i = 1; i < this.data.length; i++) {
