@@ -17,7 +17,6 @@ export class MainComponent implements OnInit {
   school: any = false
   topicName: any = []
   tempname: any = []
-  tempdatas: any = []
   StudentsData: any = []
   ngOnInit(): void {
     this.getSchool()
@@ -41,9 +40,14 @@ export class MainComponent implements OnInit {
     }
   }
   output() {
-    this.HttpsService.getScores().subscribe(StudentsData => {
-      this.StudentsData = StudentsData
-    })
+    this.StudentsData = []
+    this.tempname = []
+    if (this.schoolName != '請選擇學校') {
+      this.HttpsService.getScores().subscribe(StudentsData => {
+        this.StudentsData = StudentsData
+        console.log(StudentsData)
+      })
+    }
   }
 
   changeSchoolName(val: any) {
@@ -53,6 +57,7 @@ export class MainComponent implements OnInit {
     } else {
       this.cookieService.set('School', val);
       this.school = false
+      this.output()
     }
   }
   makexlsx() {
