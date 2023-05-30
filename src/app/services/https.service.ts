@@ -6,7 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
   providedIn: 'root'
 })
 export class HttpsService {
-  private BaseUrl: string = 'http://163.18.110.100:4500';
+  private BaseUrl: string = 'http://192.168.50.195:4500';
   constructor(
     private http: HttpClient,
     private CookieService: CookieService

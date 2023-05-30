@@ -54,9 +54,6 @@ export class SearchPageComponent implements OnInit {
       res.forEach((element: any) => {
         this.feedbackId.push(element.feedbackId)
         this.answer.push(element.answer)
-        if (element.questionTypeName == '數字分解2' && element.topicAnswer.substring(element.topicAnswer.length - 1) == " ") {
-          element.topicAnswer = element.topicAnswer.substring(0, element.topicAnswer.length - 1)
-        }
         this.correctAns.push(element.topicAnswer)
         if (element.answer == '' || element.answer == null) {
           element.answer = '無作答'
