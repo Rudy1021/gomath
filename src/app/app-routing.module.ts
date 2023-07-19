@@ -13,6 +13,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AnsPageComponent } from './components/ans-page/ans-page.component';
 import { SearchPageComponent } from './components/search-page/search-page.component';
+import { NewStudentComponent } from './components/new-student/new-student.component';
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'files', component: FilesComponent },
   { path: 'analyze/:arg', component: AnalyzeComponent },
   { path: 'import', component: ImportComponent },
+  { path: 'newStudent/:schoolId', component: NewStudentComponent },
   { path: 'editStudent/:accountId', component: EditStudentComponent },
   { path: 'topic', component: TopicComponent },
   { path: 'newGroup', component: NewGroupComponent },

@@ -6,7 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
   providedIn: 'root'
 })
 export class HttpsService {
-  private BaseUrl: string = 'http://192.168.50.195:4500';
+  private BaseUrl: string = 'http://163.18.42.225:4501';
   constructor(
     private http: HttpClient,
     private CookieService: CookieService
@@ -20,6 +20,13 @@ export class HttpsService {
   getStudents(): Observable<any> {
     return this.http.get(this.BaseUrl + '/Account/StudentList2/' + this.CookieService.get("School"));
   }
+  uploadStudent(Request: any) {
+    const url = `${this.BaseUrl}/Account/ImportStudent`;
+    return this.http.post(url, Request, {
+      responseType: 'text',
+      observe: 'response'
+    });
+  }
   getSchools(): Observable<any> {
     return this.http.get(this.BaseUrl + '/Account/GetSchoolList');
   }
@@ -32,6 +39,10 @@ export class HttpsService {
     return this.http.post(url, Request, {
       observe: 'response'
     });
+  }
+  deleteSchool(id: string) {
+    const url = `${this.BaseUrl}/Account/DeleteSchool/${id}`;
+    return this.http.delete(url);
   }
   unlockAllStudent(id: any) {
     const url = `${this.BaseUrl}/Account/UnlockAllStudent/${id}`;
@@ -89,5 +100,8 @@ export class HttpsService {
   updateFeedback(Request: any, feedbackId: string) {
     const url = `${this.BaseUrl}/Account/PatchStudentAnswer/${feedbackId}`;
     return this.http.patch(url, Request)
+  }
+  getStudentsScores(id:string): Observable<any> {
+    return this.http.get(this.BaseUrl + '/Account/AnalyzeTestReport/' + `${id}`);
   }
 }
