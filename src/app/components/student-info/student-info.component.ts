@@ -30,11 +30,11 @@ export class StudentInfoComponent implements OnInit {
     this.getStudents()
   }
 
-  testdata:any = [
-    "圖形辨識計數","規則圖形計數","隨機圖型計數","圖形合成計數","數字分解1",
-    "數字分解2","加減法","加法填空","比大小","數字序列",
-    "圖形序列","數值估計","數線估計","乘法","數字記憶廣度-順背",
-    "數字記憶廣度-逆背","詞語記憶","視覺工作記憶","視覺空間工作記憶"
+  testdata: any = [
+    "圖形辨識計數", "規則圖形計數", "隨機圖型計數", "圖形合成計數", "數字分解1",
+    "數字分解2", "加減法", "加法填空", "比大小", "數字序列",
+    "圖形序列", "數值估計", "數線估計", "乘法", "數字記憶廣度-順背",
+    "數字記憶廣度-逆背", "詞語記憶", "視覺工作記憶", "視覺空間工作記憶"
   ]
 
   Template: any = {
@@ -116,7 +116,7 @@ export class StudentInfoComponent implements OnInit {
   getStudentsScores(): void {
     this.HttpsService.getStudentsScores(this.school['name']).subscribe(StudentsData => {
       StudentsData.forEach((element: any) => {
-        var singleData:any = {}
+        var singleData: any = {}
         // personal information
         singleData["學校"] = element["school"]
         singleData["班級"] = element["class"]
@@ -125,10 +125,10 @@ export class StudentInfoComponent implements OnInit {
           singleData["性別"] = "男"
         } else { singleData["性別"] = "女" }
         // personal grade distribution
-        for(var i in this.testdata){
-          singleData[`${this.testdata[i]}(總秒數)`] = element[`topicTime${Number(i)+1}`]
-          singleData[`${this.testdata[i]}(答對數)`] = element[`topicCorrect${Number(i)+1}`]
-          singleData[`${this.testdata[i]}(完成數)`] = element[`topicFinished${Number(i)+1}`]
+        for (var i in this.testdata) {
+          singleData[`${this.testdata[i]}(總秒數)`] = element[`topicTime${Number(i) + 1}`]
+          singleData[`${this.testdata[i]}(答對數)`] = element[`topicCorrect${Number(i) + 1}`]
+          singleData[`${this.testdata[i]}(完成數)`] = element[`topicFinished${Number(i) + 1}`]
         }
         this.excelData.push(singleData)
       })
@@ -137,7 +137,8 @@ export class StudentInfoComponent implements OnInit {
     })
   }
 
-  exportExcel(excelData:any): void {
+
+  exportExcel(excelData: any): void {
     const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
     const EXCEL_EXTENSION = '.xlsx';
 
@@ -151,7 +152,7 @@ export class StudentInfoComponent implements OnInit {
     const excelBuffer = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
     const blobData = new Blob([excelBuffer], { type: EXCEL_TYPE })
 
-    var currentDate = new Date().getMonth()+1+'月'+new Date().getDate()+'日'
+    var currentDate = new Date().getMonth() + 1 + '月' + new Date().getDate() + '日'
     xlsx.writeFile(workbook, `基礎數認知評量與工作記憶測驗結果-${currentDate}.xlsx`);
 
   }
@@ -166,7 +167,31 @@ export class StudentInfoComponent implements OnInit {
     this.dataSource = data.sort((a: any, b: any) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
+        case 'name': return compare(a.name, b.name, isAsc);
+        default: return 0;
+      }
+    });
+
+    this.dataSource = data.sort((a: any, b: any) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
         case 'studentId': return compare(a.studentId, b.studentId, isAsc);
+        default: return 0;
+      }
+    });
+
+    this.dataSource = data.sort((a: any, b: any) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'grade': return compare(a.grade, b.grade, isAsc);
+        default: return 0;
+      }
+    });
+
+    this.dataSource = data.sort((a: any, b: any) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'class': return compare(a.class, b.class, isAsc);
         default: return 0;
       }
     });
@@ -328,7 +353,10 @@ export class StudentInfoComponent implements OnInit {
 }
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {
-  a = Number(a)
-  b = Number(b)
+  console.log(Number(a))
+  if (Number(a)) {
+    a = Number(a)
+    b = Number(b)
+  }
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }

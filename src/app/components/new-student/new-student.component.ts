@@ -54,7 +54,7 @@ export class NewStudentComponent implements OnInit {
         text: '建立成功！',
         confirmButtonText: '好的'
       }).then(res => {
-        location.href = '/schoolList'
+        location.href = '/StudentInfo'
       })
     }
     )

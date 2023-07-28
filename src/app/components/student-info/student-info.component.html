@@ -10,7 +10,7 @@
         <button class="btn btn-danger" (click)="unlockAllStudent()">解鎖所有學生帳號</button>
       </div>
       <div class="col-2">
-        <button class="btn btn-danger" [routerLink]="['/newStudent/' + school.Id]">新增學生帳號</button>
+        <button class="btn btn-primary" [routerLink]="['/newStudent/' + school.Id]">新增學生帳號</button>
       </div>
     </div>
     <table mat-table matSort (matSortChange)="sortData($event)" [dataSource]="dataSource" class="mat-elevation-z8" style="width:100%;">
@@ -20,7 +20,7 @@
 
       <!-- Position Column -->
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> 姓名 </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="name"> 姓名 </th>
         <td mat-cell *matCellDef="let element"> {{element.name}} </td>
       </ng-container>
 
@@ -38,12 +38,12 @@
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="grade">
-        <th mat-header-cell *matHeaderCellDef> 年級 </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="grade"> 年級 </th>
         <td mat-cell *matCellDef="let element"> {{element.grade}} </td>
       </ng-container>
 
       <ng-container matColumnDef="class">
-        <th mat-header-cell *matHeaderCellDef> 班級 </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="class"> 班級 </th>
         <td mat-cell *matCellDef="let element"> {{element.class}} </td>
       </ng-container>
 

@@ -31,8 +31,8 @@
       <div class="col-6"><input [(ngModel)]="class" class="loginInput" type="text" placeholder="班級"></div>
     </div>
     <div class="row">
-      <div class="col-6"><input [(ngModel)]="stuldentity" class="loginInput" type="number" placeholder="身份別"></div>
-      <div class="col-6"><input [(ngModel)]="urbanization" class="loginInput" type="number" placeholder="都市化程度"></div>
+      <div class="col-6"><input [(ngModel)]="stuldentity" class="loginInput" min="0" type="number" placeholder="身份別"></div>
+      <div class="col-6"><input [(ngModel)]="urbanization" class="loginInput" min="0" type="number" placeholder="都市化程度"></div>
     </div>
     <div class="row mt-3">
       <div class="col-3"></div>

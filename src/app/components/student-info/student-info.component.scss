@@ -6,9 +6,18 @@
 .mat-column-name, .mat-column-school, .mat-column-grade, .mat-column-class, .mat-column-status {
   text-align: center;
 }
+.mat-column-name {
+  text-align: left;
+}
 .mat-column-studentId {
   text-align: left;
 }
-.mat-column-option {
+.mat-column-school {
+  text-align: left;
+}
+.mat-column-grade {
+  text-align: left;
+}
+.mat-column-class {
   text-align: left;
 }
