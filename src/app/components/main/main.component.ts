@@ -16,7 +16,7 @@ export class MainComponent implements OnInit {
   schoolName: any = '請選擇學校'
   school: any = false
   topicName: any = []
-  tempname: any = []
+  tempId: any = []
   StudentsData: any = []
   ngOnInit(): void {
     this.getSchool()
@@ -41,7 +41,7 @@ export class MainComponent implements OnInit {
   }
   output() {
     this.StudentsData = []
-    this.tempname = []
+    this.tempId = []
     if (this.schoolName != '請選擇學校') {
       this.HttpsService.getScores().subscribe(StudentsData => {
         this.StudentsData = StudentsData
@@ -95,6 +95,10 @@ export class MainComponent implements OnInit {
       if (element.topicAnswer != element.answer) {
         correct = '錯'
       }
+      if (element.answer == ''){
+        correct = '未作答'
+      }
+
       if (this.topicName.find((elements: any) => elements == element.topic.split("(")[0]) == undefined) {
         this.topicName.push(element.topic.split("(")[0])
       }
@@ -141,11 +145,11 @@ export class MainComponent implements OnInit {
       if (this.StudentsData[w].gender == false) {
         g = '女'
       }
-      if (this.tempname.indexOf(this.StudentsData[w].name) == -1) {
-        this.tempname.push(this.StudentsData[w].name)
+      if (this.tempId.indexOf(this.StudentsData[w].studentId) == -1) {
+        this.tempId.push(this.StudentsData[w].studentId)
         this.data.push([this.StudentsData[w].name, this.StudentsData[w].studentId, this.StudentsData[w].school, g])
       }
-      if (w % this.tempname.length == 0) {
+      if (w % this.tempId.length == 0) {
         indexOftopic++
       }
       topic.push(this.StudentsData[w].topic.split("(")[0])
@@ -153,24 +157,28 @@ export class MainComponent implements OnInit {
       if (this.StudentsData[w].topicAnswer != this.StudentsData[w].answer) {
         correct = '錯'
       }
+      if (this.StudentsData[w].answer == ''){
+        correct = '未作答'
+      }
+
       if (w == 56) {
         console.log("a")
       }
       if (topic[topic.length - 1] == topic[topic.length - 2] || topic.length == 1) {
         if (!this.StudentsData[w].topic.split("(")[1].split(")")[0].match(/練習[0-9]*/)) {
           if (this.StudentsData[w].topic.split("(")[1].split(")")[0] != '說明') {
-            if (this.data[0].indexOf("第" + this.StudentsData[w].topic.split("(")[1].split(")")[0] + "題結果對錯") == -1) {
-              this.data[0].push("第" + this.StudentsData[w].topic.split("(")[1].split(")")[0] + "題結果對錯", "第" + this.StudentsData[w].topic.split("(")[1].split(")")[0] + "題答題時間")
+            if (this.data[0].indexOf("第" + this.StudentsData[w].topic.split("(")[1].split(")")[0] + "題作答") == -1) {
+              this.data[0].push("第" + this.StudentsData[w].topic.split("(")[1].split(")")[0] + "題作答","第" + this.StudentsData[w].topic.split("(")[1].split(")")[0] + "題答案","第" + this.StudentsData[w].topic.split("(")[1].split(")")[0] + "題結果對錯", "第" + this.StudentsData[w].topic.split("(")[1].split(")")[0] + "題答題時間")
             }
-            if (((this.data[this.tempname.indexOf(this.StudentsData[w].name) + 1].length - 4) / 2) + 1 == this.StudentsData[w].topic.split("(")[1].split(")")[0]) {
-              this.data[this.tempname.indexOf(this.StudentsData[w].name) + 1].push(correct, this.StudentsData[w].answerSpeedSecond)
+            if (((this.data[this.tempId.indexOf(this.StudentsData[w].studentId) + 1].length - 4) / 2) + 1 == this.StudentsData[w].topic.split("(")[1].split(")")[0]) {
+              this.data[this.tempId.indexOf(this.StudentsData[w].studentId) + 1].push(this.StudentsData[w].answer, this.StudentsData[w].topicAnswer, correct, this.StudentsData[w].answerSpeedSecond)
             } else {
               if (this.StudentsData[w].topic.split("(")[1].split(")")[0] != this.StudentsData[w - 1].topic.split("(")[1].split(")")[0] || this.StudentsData[w].name != this.StudentsData[w - 1].name) {
-                var topicNum = parseInt(this.StudentsData[w].topic.split("(")[1].split(")")[0]) - ((this.data[this.tempname.indexOf(this.StudentsData[w].name) + 1].length - 4) / 2 + 1)
+                var topicNum = parseInt(this.StudentsData[w].topic.split("(")[1].split(")")[0]) - ((this.data[this.tempId.indexOf(this.StudentsData[w].studentId) + 1].length - 4) / 2 + 1)
                 for (var m = 1; m <= topicNum; m++) {
-                  this.data[this.tempname.indexOf(this.StudentsData[w].name) + 1].push('未作答', '未作答')
+                  this.data[this.tempId.indexOf(this.StudentsData[w].studentId) + 1].push('', this.StudentsData[w].topicAnswer, '未作答', '未作答')
                 }
-                this.data[this.tempname.indexOf(this.StudentsData[w].name) + 1].push(correct, this.StudentsData[w].answerSpeedSecond)
+                this.data[this.tempId.indexOf(this.StudentsData[w].studentId) + 1].push(this.StudentsData[w].answer, this.StudentsData[w].topicAnswer, correct, this.StudentsData[w].answerSpeedSecond)
               }
             }
           }
@@ -186,7 +194,7 @@ export class MainComponent implements OnInit {
           this.data[i].push(temparray[0], temparray[1], temparray[2], temparray[3])
         }
         this.data[0] = ['姓名', '學號', '學校', '性別']
-        this.data[this.tempname.indexOf(this.StudentsData[w].name) + 1].push(correct, this.StudentsData[w].answerSpeedSecond)
+        this.data[this.tempId.indexOf(this.StudentsData[w].studentId) + 1].push(this.StudentsData[w].answer, this.StudentsData[w].topicAnswer, correct, this.StudentsData[w].answerSpeedSecond)
       }
     }
     /* generate workbook and add the worksheet */

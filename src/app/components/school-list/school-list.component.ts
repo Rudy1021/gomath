@@ -9,7 +9,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 export class SchoolListComponent implements OnInit {
 
   constructor(private HttpsService: HttpsService) { }
-  displayedColumns: string[] = ['name', 'option', 'priorityFirst'];
+  displayedColumns: string[] = ['name', 'option', 'priorityFirst', 'delete'];
   schoolList: any = []
   datasource: any
   ngOnInit(): void {
@@ -29,6 +29,31 @@ export class SchoolListComponent implements OnInit {
       this.datasource = this.schoolList
     })
   }
+
+  delSchool(id: any) {
+    Swal.fire({
+      title: '警告！',
+      icon: 'warning',
+      text: '確定要刪除嗎？',
+      confirmButtonText: '確定',
+      showCancelButton: true,
+      cancelButtonText: "取消"
+    }).then(res => {
+      if (res.isConfirmed) {
+        this.HttpsService.deleteSchool(id).subscribe(res => {
+          Swal.fire({
+            title: '成功！',
+            icon: 'success',
+            text: '刪除成功！',
+            confirmButtonText: '確定'
+          }).then(res => {
+            location.href = '/schoolList'
+          })
+        })
+      }
+    })
+  }
+
   priorityFirst(id: any) {
     Swal.fire({
       title: '警告！',
