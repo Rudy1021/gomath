@@ -11,8 +11,11 @@ export class HttpsService {
     private http: HttpClient,
     private CookieService: CookieService
   ) { }
+  // getScores(): Observable<any> {
+  //   return this.http.get(this.BaseUrl + '/Account/AnalyzeTestAll2/' + this.CookieService.get("School"));
+  // }
   getScores(): Observable<any> {
-    return this.http.get(this.BaseUrl + '/Account/AnalyzeTestAll2/' + this.CookieService.get("School"));
+    return this.http.get(this.BaseUrl + '/Account/AnalyzeTestAllToExcel/' + this.CookieService.get("School"));
   }
   setPriority(id: any): Observable<any> {
     return this.http.get(`${this.BaseUrl}/Account/PrioritySchool/${id}`);
@@ -101,7 +104,7 @@ export class HttpsService {
     const url = `${this.BaseUrl}/Account/PatchStudentAnswer/${feedbackId}`;
     return this.http.patch(url, Request)
   }
-  getStudentsScores(id:string): Observable<any> {
+  getStudentsScores(id: string): Observable<any> {
     return this.http.get(this.BaseUrl + '/Account/AnalyzeTestReport/' + `${id}`);
   }
 }
