@@ -43,7 +43,7 @@ export class MainComponent implements OnInit {
     this.StudentsData = []
     this.tempId = []
     if (this.schoolName != '請選擇學校') {
-      this.HttpsService.getScores().subscribe(StudentsData => {
+      this.HttpsService.getScoresAllToExcel().subscribe(StudentsData => {
         this.StudentsData = StudentsData
       })
     }
