@@ -11,10 +11,10 @@ export class HttpsService {
     private http: HttpClient,
     private CookieService: CookieService
   ) { }
-  // getScores(): Observable<any> {
-  //   return this.http.get(this.BaseUrl + '/Account/AnalyzeTestAll2/' + this.CookieService.get("School"));
-  // }
   getScores(): Observable<any> {
+    return this.http.get(this.BaseUrl + '/Account/AnalyzeTestAll2/' + this.CookieService.get("School"));
+  }
+  getScoresAllToExcel(): Observable<any> {
     return this.http.get(this.BaseUrl + '/Account/AnalyzeTestAllToExcel/' + this.CookieService.get("School"));
   }
   setPriority(id: any): Observable<any> {
