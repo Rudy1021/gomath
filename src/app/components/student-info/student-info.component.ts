@@ -24,6 +24,8 @@ export class StudentInfoComponent implements OnInit {
   displayedColumns: any = ['name', 'studentId', 'school', 'grade', 'class', 'status', 'option']
   ELE: any = []
   studentId: any = []
+  studentId15: any = []
+  studentId16: any = []
   school = { "name": '', "Id": '' }
 
   ngOnInit(): void {
@@ -226,8 +228,16 @@ export class StudentInfoComponent implements OnInit {
       this.HttpsService.getScores().subscribe(res => {
         res.forEach((element: any) => {
           if (this.studentId.find((elements: any) => element.studentId == elements) == undefined) {
-            this.studentId.push(element.studentId)
+            this.studentId.push(element.student)
           }
+          if (element.questionTypeId == "數字記憶廣度1"){
+          if (this.studentId15.find((elements: any) => element.studentId == elements) == undefined) {
+            this.studentId15.push(element.studentId)
+          }}
+          if (element.questionTypeId == "數字記憶廣度2"){
+          if (this.studentId16.find((elements: any) => element.studentId == elements) == undefined) {
+            this.studentId16.push(element.studentId)
+          }}
         });
       })
       this.getSchools()
@@ -314,6 +324,54 @@ export class StudentInfoComponent implements OnInit {
     }).then((res) => {
       if (res.isConfirmed) {
         this.HttpsService.delStudentScore(studentId).subscribe(res => {
+          Swal.fire({
+            title: '成功',
+            icon: 'success',
+            text: '清除成功！',
+            confirmButtonText: '好的'
+          }).then((res) => {
+            location.reload()
+          })
+        })
+      }
+    })
+  }
+
+  delScore15(studentId: any) {
+    Swal.fire({
+      title: '警告',
+      icon: 'warning',
+      text: '確定要清除作答(數字記憶廣度1)嗎？',
+      confirmButtonText: '好的',
+      cancelButtonText: '取消',
+      showCancelButton: true
+    }).then((res) => {
+      if (res.isConfirmed) {
+        this.HttpsService.delStudentScore15(studentId).subscribe(res => {
+          Swal.fire({
+            title: '成功',
+            icon: 'success',
+            text: '清除成功！',
+            confirmButtonText: '好的'
+          }).then((res) => {
+            location.reload()
+          })
+        })
+      }
+    })
+  }
+
+  delScore16(studentId: any) {
+    Swal.fire({
+      title: '警告',
+      icon: 'warning',
+      text: '確定要清除作答(數字記憶廣度2)嗎？',
+      confirmButtonText: '好的',
+      cancelButtonText: '取消',
+      showCancelButton: true
+    }).then((res) => {
+      if (res.isConfirmed) {
+        this.HttpsService.delStudentScore16(studentId).subscribe(res => {
           Swal.fire({
             title: '成功',
             icon: 'success',

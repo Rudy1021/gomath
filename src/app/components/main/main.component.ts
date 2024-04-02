@@ -43,7 +43,7 @@ export class MainComponent implements OnInit {
     this.StudentsData = []
     this.tempId = []
     if (this.schoolName != '請選擇學校') {
-      this.HttpsService.getScores().subscribe(StudentsData => {
+      this.HttpsService.getScoresAllToExcel().subscribe(StudentsData => {
         this.StudentsData = StudentsData
       })
     }
@@ -59,158 +59,195 @@ export class MainComponent implements OnInit {
       this.output()
     }
   }
+
+  // makexlsx() {
+  //   var n = this.StudentsData.length
+  //   for (let i = 0; i < n - 1; i++) {
+  //     // 3
+  //     for (let j = 0; j < n - 1 - i; j++) {
+  //       // 4
+  //       if (this.StudentsData[j].name > this.StudentsData[j + 1].name) {
+  //         // 5
+  //         const temp = this.StudentsData[j];
+  //         this.StudentsData[j] = this.StudentsData[j + 1];
+  //         this.StudentsData[j + 1] = temp;
+  //       }
+  //     }
+  //   }
+  //   for (let i = 0; i < n - 1; i++) {
+  //     // 3
+  //     for (let j = 0; j < n - 1 - i; j++) {
+  //       // 4
+  //       if (this.StudentsData[j].name == this.StudentsData[j + 1].name && this.StudentsData[j].topic.split("(")[0] == this.StudentsData[j + 1].topic.split("(")[0] && parseInt(this.StudentsData[j].topic.split("(")[1].split(")")[0]) > parseInt(this.StudentsData[j + 1].topic.split("(")[1].split(")")[0])) {
+  //         // 5
+  //         const temp = this.StudentsData[j];
+  //         this.StudentsData[j] = this.StudentsData[j + 1];
+  //         this.StudentsData[j + 1] = temp;
+  //       }
+  //     }
+  //   }
+  //   const wb: xlsx.WorkBook = xlsx.utils.book_new();
+  //   this.StudentsData.forEach((element: any) => {
+  //     var g = '男'
+  //     if (element.gender == false) {
+  //       g = '女'
+  //     }
+  //     var correct = '對'
+  //     if (element.topicAnswer != element.answer) {
+  //       correct = '錯'
+  //     }
+  //     if (element.answer == '') {
+  //       correct = '未作答'
+  //     }
+
+  //     if (this.topicName.find((elements: any) => elements == element.topic.split("(")[0]) == undefined) {
+  //       this.topicName.push(element.topic.split("(")[0])
+  //     }
+  //     var tempdata = [element.name, element.studentId, element.school, g, element.topic, element.topicAnswer, element.answer,
+  //       correct, element.answerSpeedSecond]
+  //     this.data.push(tempdata)
+  //   });
+  //   console.log(this.data)
+  //   const ws1: xlsx.WorkSheet = xlsx.utils.aoa_to_sheet(this.data);
+  //   xlsx.utils.book_append_sheet(wb, ws1, '學生成績');
+
+
+  //   var n = this.StudentsData.length
+  //   for (let i = 0; i < n - 1; i++) {
+  //     // 3
+  //     for (let j = 0; j < n - 1 - i; j++) {
+  //       // 4
+  //       if (this.StudentsData[j].topic > this.StudentsData[j + 1].topic) {
+  //         // 5
+  //         const temp = this.StudentsData[j];
+  //         this.StudentsData[j] = this.StudentsData[j + 1];
+  //         this.StudentsData[j + 1] = temp;
+  //       }
+  //     }
+  //   }
+  //   for (let i = 0; i < n - 1; i++) {
+  //     // 3
+  //     for (let j = 0; j < n - 1 - i; j++) {
+  //       // 4
+  //       if (parseInt(this.StudentsData[j].topic.split("(")[1].split(")")[0]) > parseInt(this.StudentsData[j + 1].topic.split("(")[1].split(")")[0]) && this.StudentsData[j].topic.split("(")[0] == this.StudentsData[j + 1].topic.split("(")[0]) {
+  //         // 5
+  //         const temp = this.StudentsData[j];
+  //         this.StudentsData[j] = this.StudentsData[j + 1];
+  //         this.StudentsData[j + 1] = temp;
+  //       }
+  //     }
+  //   }
+  //   this.data = []
+  //   var topic: any = []
+  //   this.data.push(['姓名', '學號', '學校', '性別'])
+  //   var indexOftopic = 0
+  //   console.log(this.StudentsData)
+  //   for (var w = 0; w < this.StudentsData.length; w++) {
+  //     var g = '男'
+  //     if (this.StudentsData[w].gender == false) {
+  //       g = '女'
+  //     }
+  //     if (this.tempId.indexOf(this.StudentsData[w].studentId) == -1) {
+  //       this.tempId.push(this.StudentsData[w].studentId)
+  //       this.data.push([this.StudentsData[w].name, this.StudentsData[w].studentId, this.StudentsData[w].school, g])
+  //     }
+  //     if (w % this.tempId.length == 0) {
+  //       indexOftopic++
+  //     }
+  //     topic.push(this.StudentsData[w].topic.split("(")[0])
+  //     var correct = '對'
+  //     if (this.StudentsData[w].topicAnswer != this.StudentsData[w].answer) {
+  //       correct = '錯'
+  //     }
+  //     if (this.StudentsData[w].answer == '') {
+  //       correct = '未作答'
+  //     }
+
+  //     if (w == 56) {
+  //       console.log("a")
+  //     }
+  //     if (topic[topic.length - 1] == topic[topic.length - 2] || topic.length == 1) {
+  //       if (!this.StudentsData[w].topic.split("(")[1].split(")")[0].match(/練習[0-9]*/)) {
+  //         if (this.StudentsData[w].topic.split("(")[1].split(")")[0] != '說明') {
+  //           if (this.data[0].indexOf("第" + this.StudentsData[w].topic.split("(")[1].split(")")[0] + "題作答") == -1) {
+  //             this.data[0].push("第" + this.StudentsData[w].topic.split("(")[1].split(")")[0] + "題作答", "第" + this.StudentsData[w].topic.split("(")[1].split(")")[0] + "題答案", "第" + this.StudentsData[w].topic.split("(")[1].split(")")[0] + "題結果對錯", "第" + this.StudentsData[w].topic.split("(")[1].split(")")[0] + "題答題時間")
+  //           }
+  //           if (((this.data[this.tempId.indexOf(this.StudentsData[w].studentId) + 1].length - 4) / 2) + 1 == this.StudentsData[w].topic.split("(")[1].split(")")[0]) {
+  //             this.data[this.tempId.indexOf(this.StudentsData[w].studentId) + 1].push(this.StudentsData[w].answer, this.StudentsData[w].topicAnswer, correct, this.StudentsData[w].answerSpeedSecond)
+  //           } else {
+  //             if (this.StudentsData[w].topic.split("(")[1].split(")")[0] != this.StudentsData[w - 1].topic.split("(")[1].split(")")[0] || this.StudentsData[w].name != this.StudentsData[w - 1].name) {
+  //               var topicNum = parseInt(this.StudentsData[w].topic.split("(")[1].split(")")[0]) - ((this.data[this.tempId.indexOf(this.StudentsData[w].studentId) + 1].length - 4) / 2 + 1)
+  //               for (var m = 1; m <= topicNum; m++) {
+  //                 this.data[this.tempId.indexOf(this.StudentsData[w].studentId) + 1].push('', this.StudentsData[w].topicAnswer, '未作答', '未作答')
+  //               }
+  //               this.data[this.tempId.indexOf(this.StudentsData[w].studentId) + 1].push(this.StudentsData[w].answer, this.StudentsData[w].topicAnswer, correct, this.StudentsData[w].answerSpeedSecond)
+  //             }
+  //           }
+  //         }
+  //       }
+  //     } else {
+  //       indexOftopic = 1
+  //       const ws1: xlsx.WorkSheet = xlsx.utils.aoa_to_sheet(this.data);
+  //       xlsx.utils.book_append_sheet(wb, ws1, topic[topic.length - 2]);
+  //       topic = []
+  //       for (var i = 1; i < this.data.length; i++) {
+  //         var temparray = [this.data[i][0], this.data[i][1], this.data[i][2], this.data[i][3]]
+  //         this.data[i] = []
+  //         this.data[i].push(temparray[0], temparray[1], temparray[2], temparray[3])
+  //       }
+  //       this.data[0] = ['姓名', '學號', '學校', '性別']
+  //       this.data[this.tempId.indexOf(this.StudentsData[w].studentId) + 1].push(this.StudentsData[w].answer, this.StudentsData[w].topicAnswer, correct, this.StudentsData[w].answerSpeedSecond)
+  //     }
+  //   }
+
+  //   console.log(this.data)
+  //   console.log(this.StudentsData)
+  //   console.log(wb)
+
+  //   /* generate workbook and add the worksheet */
+  //   /*
+  //   for (var i = 0; i < this.topicName.length; i++) {
+  //     xlsx.utils.book_append_sheet(wb, ws, this.topicName[i]);
+  //   }
+  //   */
+  //   /* save to file */
+  //   xlsx.writeFile(wb, '總學生成績.xlsx');
+  //   Swal.fire({
+  //     title: '成功',
+  //     icon: 'success',
+  //     text: '匯出成功！',
+  //     confirmButtonText: '好的'
+  //   })
+  // }
+
   makexlsx() {
-    var n = this.StudentsData.length
-    for (let i = 0; i < n - 1; i++) {
-      // 3
-      for (let j = 0; j < n - 1 - i; j++) {
-        // 4
-        if (this.StudentsData[j].name > this.StudentsData[j + 1].name) {
-          // 5
-          const temp = this.StudentsData[j];
-          this.StudentsData[j] = this.StudentsData[j + 1];
-          this.StudentsData[j + 1] = temp;
-        }
-      }
-    }
-    for (let i = 0; i < n - 1; i++) {
-      // 3
-      for (let j = 0; j < n - 1 - i; j++) {
-        // 4
-        if (this.StudentsData[j].name == this.StudentsData[j + 1].name && this.StudentsData[j].topic.split("(")[0] == this.StudentsData[j + 1].topic.split("(")[0] && parseInt(this.StudentsData[j].topic.split("(")[1].split(")")[0]) > parseInt(this.StudentsData[j + 1].topic.split("(")[1].split(")")[0])) {
-          // 5
-          const temp = this.StudentsData[j];
-          this.StudentsData[j] = this.StudentsData[j + 1];
-          this.StudentsData[j + 1] = temp;
-        }
-      }
-    }
-    const wb: xlsx.WorkBook = xlsx.utils.book_new();
-    this.StudentsData.forEach((element: any) => {
-      var g = '男'
-      if (element.gender == false) {
-        g = '女'
-      }
-      var correct = '對'
-      if (element.topicAnswer != element.answer) {
-        correct = '錯'
-      }
-      if (element.answer == ''){
-        correct = '未作答'
-      }
-
-      if (this.topicName.find((elements: any) => elements == element.topic.split("(")[0]) == undefined) {
-        this.topicName.push(element.topic.split("(")[0])
-      }
-      var tempdata = [element.name, element.studentId, element.school, g, element.topic, element.topicAnswer, element.answer,
-        correct, element.answerSpeedSecond]
-      this.data.push(tempdata)
-    });
-    const ws1: xlsx.WorkSheet = xlsx.utils.aoa_to_sheet(this.data);
-    xlsx.utils.book_append_sheet(wb, ws1, '學生成績');
-
-
-    var n = this.StudentsData.length
-    for (let i = 0; i < n - 1; i++) {
-      // 3
-      for (let j = 0; j < n - 1 - i; j++) {
-        // 4
-        if (this.StudentsData[j].topic > this.StudentsData[j + 1].topic) {
-          // 5
-          const temp = this.StudentsData[j];
-          this.StudentsData[j] = this.StudentsData[j + 1];
-          this.StudentsData[j + 1] = temp;
-        }
-      }
-    }
-    for (let i = 0; i < n - 1; i++) {
-      // 3
-      for (let j = 0; j < n - 1 - i; j++) {
-        // 4
-        if (parseInt(this.StudentsData[j].topic.split("(")[1].split(")")[0]) > parseInt(this.StudentsData[j + 1].topic.split("(")[1].split(")")[0]) && this.StudentsData[j].topic.split("(")[0] == this.StudentsData[j + 1].topic.split("(")[0]) {
-          // 5
-          const temp = this.StudentsData[j];
-          this.StudentsData[j] = this.StudentsData[j + 1];
-          this.StudentsData[j + 1] = temp;
-        }
-      }
-    }
-    this.data = []
-    var topic: any = []
-    this.data.push(['姓名', '學號', '學校', '性別'])
-    var indexOftopic = 0
     console.log(this.StudentsData)
-    for (var w = 0; w < this.StudentsData.length; w++) {
-      var g = '男'
-      if (this.StudentsData[w].gender == false) {
-        g = '女'
-      }
-      if (this.tempId.indexOf(this.StudentsData[w].studentId) == -1) {
-        this.tempId.push(this.StudentsData[w].studentId)
-        this.data.push([this.StudentsData[w].name, this.StudentsData[w].studentId, this.StudentsData[w].school, g])
-      }
-      if (w % this.tempId.length == 0) {
-        indexOftopic++
-      }
-      topic.push(this.StudentsData[w].topic.split("(")[0])
-      var correct = '對'
-      if (this.StudentsData[w].topicAnswer != this.StudentsData[w].answer) {
-        correct = '錯'
-      }
-      if (this.StudentsData[w].answer == ''){
-        correct = '未作答'
+
+    if (this.StudentsData) {
+
+      const wb = xlsx.utils.book_new();
+
+      for (const sheetName in this.StudentsData[0]) {
+        // if (this.StudentsData[0].hasOwnProperty(sheetName)) {
+        if (this.StudentsData[0][sheetName].length) {
+          const ws = xlsx.utils.json_to_sheet(this.StudentsData[0][sheetName]);
+          xlsx.utils.book_append_sheet(wb, ws, sheetName);
+        }
+        // }
       }
 
-      if (w == 56) {
-        console.log("a")
-      }
-      if (topic[topic.length - 1] == topic[topic.length - 2] || topic.length == 1) {
-        if (!this.StudentsData[w].topic.split("(")[1].split(")")[0].match(/練習[0-9]*/)) {
-          if (this.StudentsData[w].topic.split("(")[1].split(")")[0] != '說明') {
-            if (this.data[0].indexOf("第" + this.StudentsData[w].topic.split("(")[1].split(")")[0] + "題作答") == -1) {
-              this.data[0].push("第" + this.StudentsData[w].topic.split("(")[1].split(")")[0] + "題作答","第" + this.StudentsData[w].topic.split("(")[1].split(")")[0] + "題答案","第" + this.StudentsData[w].topic.split("(")[1].split(")")[0] + "題結果對錯", "第" + this.StudentsData[w].topic.split("(")[1].split(")")[0] + "題答題時間")
-            }
-            if (((this.data[this.tempId.indexOf(this.StudentsData[w].studentId) + 1].length - 4) / 2) + 1 == this.StudentsData[w].topic.split("(")[1].split(")")[0]) {
-              this.data[this.tempId.indexOf(this.StudentsData[w].studentId) + 1].push(this.StudentsData[w].answer, this.StudentsData[w].topicAnswer, correct, this.StudentsData[w].answerSpeedSecond)
-            } else {
-              if (this.StudentsData[w].topic.split("(")[1].split(")")[0] != this.StudentsData[w - 1].topic.split("(")[1].split(")")[0] || this.StudentsData[w].name != this.StudentsData[w - 1].name) {
-                var topicNum = parseInt(this.StudentsData[w].topic.split("(")[1].split(")")[0]) - ((this.data[this.tempId.indexOf(this.StudentsData[w].studentId) + 1].length - 4) / 2 + 1)
-                for (var m = 1; m <= topicNum; m++) {
-                  this.data[this.tempId.indexOf(this.StudentsData[w].studentId) + 1].push('', this.StudentsData[w].topicAnswer, '未作答', '未作答')
-                }
-                this.data[this.tempId.indexOf(this.StudentsData[w].studentId) + 1].push(this.StudentsData[w].answer, this.StudentsData[w].topicAnswer, correct, this.StudentsData[w].answerSpeedSecond)
-              }
-            }
-          }
-        }
-      } else {
-        indexOftopic = 1
-        const ws1: xlsx.WorkSheet = xlsx.utils.aoa_to_sheet(this.data);
-        xlsx.utils.book_append_sheet(wb, ws1, topic[topic.length - 2]);
-        topic = []
-        for (var i = 1; i < this.data.length; i++) {
-          var temparray = [this.data[i][0], this.data[i][1], this.data[i][2], this.data[i][3]]
-          this.data[i] = []
-          this.data[i].push(temparray[0], temparray[1], temparray[2], temparray[3])
-        }
-        this.data[0] = ['姓名', '學號', '學校', '性別']
-        this.data[this.tempId.indexOf(this.StudentsData[w].studentId) + 1].push(this.StudentsData[w].answer, this.StudentsData[w].topicAnswer, correct, this.StudentsData[w].answerSpeedSecond)
-      }
+      xlsx.writeFile(wb, '總學生成績.xlsx');
+
+      Swal.fire({
+        title: '成功',
+        icon: 'success',
+        text: '匯出成功！',
+        confirmButtonText: '好的'
+      })
+
     }
-    /* generate workbook and add the worksheet */
-    /*
-    for (var i = 0; i < this.topicName.length; i++) {
-      xlsx.utils.book_append_sheet(wb, ws, this.topicName[i]);
-    }
-    */
-    /* save to file */
-    xlsx.writeFile(wb, '總學生成績.xlsx');
-    Swal.fire({
-      title: '成功',
-      icon: 'success',
-      text: '匯出成功！',
-      confirmButtonText: '好的'
-    })
+
+
   }
 }
 

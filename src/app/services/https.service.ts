@@ -6,13 +6,16 @@ import { CookieService } from 'ngx-cookie-service';
   providedIn: 'root'
 })
 export class HttpsService {
-  private BaseUrl: string = 'http://163.18.42.225:4501';
+  private BaseUrl: string = 'http://127.0.0.1:4501';
   constructor(
     private http: HttpClient,
     private CookieService: CookieService
   ) { }
   getScores(): Observable<any> {
     return this.http.get(this.BaseUrl + '/Account/AnalyzeTestAll2/' + this.CookieService.get("School"));
+  }
+  getScoresAllToExcel(): Observable<any> {
+    return this.http.get(this.BaseUrl + '/Account/AnalyzeTestAllToExcel/' + this.CookieService.get("School"));
   }
   setPriority(id: any): Observable<any> {
     return this.http.get(`${this.BaseUrl}/Account/PrioritySchool/${id}`);
@@ -32,6 +35,14 @@ export class HttpsService {
   }
   delStudentScore(id: any) {
     const url = `${this.BaseUrl}/Account/DeleteStudentFeedback/${id}`;
+    return this.http.delete(url);
+  }
+  delStudentScore15(id: any) {
+    const url = `${this.BaseUrl}/Account/DeleteStudentFeedback15/${id}`;
+    return this.http.delete(url);
+  }
+  delStudentScore16(id: any) {
+    const url = `${this.BaseUrl}/Account/DeleteStudentFeedback16/${id}`;
     return this.http.delete(url);
   }
   uploadSchool(Request: any) {
@@ -101,7 +112,7 @@ export class HttpsService {
     const url = `${this.BaseUrl}/Account/PatchStudentAnswer/${feedbackId}`;
     return this.http.patch(url, Request)
   }
-  getStudentsScores(id:string): Observable<any> {
+  getStudentsScores(id: string): Observable<any> {
     return this.http.get(this.BaseUrl + '/Account/AnalyzeTestReport/' + `${id}`);
   }
 }
