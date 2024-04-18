@@ -94,6 +94,9 @@ export class HttpsService {
   getSearch(route: string): Observable<any> {
     return this.http.get(this.BaseUrl + '/Account/AnalyzeTestCondition?' + route);
   }
+  getSearchStudent(route: string): Observable<any> {
+    return this.http.get(this.BaseUrl + '/Account/AnalyzeTestCondition2?' + route);
+  }
   getTopicName(): Observable<any> {
     return this.http.get(this.BaseUrl + '/Topic/GetQuestionTypeIdToName');
   }

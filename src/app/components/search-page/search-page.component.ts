@@ -36,7 +36,7 @@ export class SearchPageComponent implements OnInit {
   }
   getStudent() {
     var ans = ''
-    this.HttpsService.getSearch("student_id=" + this.route.snapshot.paramMap.get('id')!).subscribe((res: any) => {
+    this.HttpsService.getSearchStudent("student_id=" + this.route.snapshot.paramMap.get('id')!).subscribe((res: any) => {
       var judge: any = []
       var n = res.length
       for (let i = 0; i < n - 1; i++) {
