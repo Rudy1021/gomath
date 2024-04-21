@@ -120,6 +120,7 @@ export class StudentInfoComponent implements OnInit {
       StudentsData.forEach((element: any) => {
         var singleData: any = {}
         // personal information
+        singleData["學號"] = element["studentId"]
         singleData["學校"] = element["school"]
         singleData["班級"] = element["class"]
         singleData["姓名"] = element["name"]
